@@ -19,7 +19,7 @@ public class Check2Stringsareanagram {
 		    	if(match)
 		    		System.out.println("strings are anagram");
 		    	else
-		    		System.out.println("strings are not anagram");
+		    		System.out.println("strings are not anagram   ");
 		    }
 		    else
 		    {
