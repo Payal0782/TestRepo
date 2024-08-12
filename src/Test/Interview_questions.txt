@@ -1,0 +1,4313 @@
+Q What is selenium driver architecture?
+
+It works on JSON via protocol
+
+Q different locators?
+8 different locators
+
+ID
+Classname
+Name
+Linktext
+Xpath
+Cssseelctor
+Tagname
+Partiallinktext
+
+Q reverse a string
+
+import java.util.Scanner;  
+class ReverseStringExample2  
+{  
+public static void main(String args[])  
+{  
+String s;  
+Scanner sc=new Scanner(System.in);                    //reading string from user  
+System.out.print("Enter a String: ");  
+s=sc.nextLine();  
+System.out.print("After reverse string is: ");  
+int i=s.length();                   //determining the length of the string   
+while(i>0)  
+{  
+System.out.print(s.charAt(i-1));                 //printing the character at index i-1  
+i--;                               //decreasing the length of the string  
+}  
+}  
+}  
+
+
+Q // Java Program to find common elements 
+// in two Arrays 
+// Using iterative method 
+import java.io.*; 
+import java.util.*; 
+  
+class GFG { 
+    private static void FindCommonElemet(String[] arr1, String[] arr2){ 
+        Set<String> set=new HashSet<>(); 
+        for(int i = 0; i < arr1.length; i++){ 
+            for(int j = 0; j < arr2.length; j++){ 
+                if(arr1[i] == arr2[j]){ 
+                    
+                    // add common elements 
+                    set.add(arr1[i]); 
+                    break; 
+                } 
+            } 
+        } 
+        for(String i:set){ 
+            System.out.print(i+" "); 
+        } 
+    } 
+// main method 
+    public static void main (String[] args) { 
+        
+        // create Array 1 
+        String[] arr1 = {"Article", "in", "Geeks","for","Geeks"}; 
+        
+        // create Array 2 
+        String[] arr2 = {"Geeks","for","Geeks"}; 
+        
+        // print Array 1 
+        System.out.println("Array 1: " + Arrays.toString(arr1)); 
+        
+        // print Array 2 
+        System.out.println("Array 2: " + Arrays.toString(arr2)); 
+        
+        System.out.print("Common Elements: "); 
+        
+        // Find the common elements 
+        FindCommonElemet(arr1,arr2); 
+    } 
+}
+
+Q 2nd max salary 
+SELECT max(salary)
+FROM emptable
+WHERE salary < (SELECT max(salary)
+                FROM emptable);
+				
+				
+Q how can we send text in textbox without sendkeys
+
+WebDriver driver = new FirefoxDriver();
+
+JavascriptExecutor executor = (JavascriptExecutor)driver;
+
+executor.executeScript("document.getElementById("textbox_id").value='new value';);
+
+Q handle scrolling 
+		Actions act = new Actions(dr);
+            act.sendKeys(Keys.PAGE_DOWN).build().perform(); //Page Down
+            System.out.println("Scroll down perfomed");
+            Thread.sleep(3000);
+         
+            act.sendKeys(Keys.PAGE_UP).build().perform();       //Page Up
+            System.out.println("Scroll up perfomed");
+            Thread.sleep(3000);
+	
+	or 
+
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript("window.scrollBy(0,250)", "");
+
+Q scroll whole page down?
+
+JavaScriptexecutor js = (JavascriptExecutor) driver;
+js.executeScript(“window.scrollTo(0, document.body.scrollHeight)”);
+
+js.executeScript(“window.scrollBy(3000,0)”); //Horizontal scroll</p>
+js.executeScript(“window.scrollBy(0,3000)”);&nbsp; //Vertical Scroll</p>
+
+//This will scroll the page till the element is found		
+js.executeScript("arguments[0].scrollIntoView(true);", Element); //Element is webelement locator
+
+//This below code will scroll and click element
+  JavascriptExecutor js = (JavascriptExecutor)driver;
+js.executeScript("arguments[0].click();", ele);
+
+Q 
+The following are the Expected Conditions that can be used in Selenium Explicit Wait
+
+alertIsPresent()
+elementSelectionStateToBe()
+elementToBeClickable()
+elementToBeSelected()
+frameToBeAvaliableAndSwitchToIt()
+invisibilityOfTheElementLocated()
+invisibilityOfElementWithText()
+presenceOfAllElementsLocatedBy()
+presenceOfElementLocated()
+textToBePresentInElement()
+textToBePresentInElementLocated()
+textToBePresentInElementValue()
+titleIs()
+titleContains()
+visibilityOf()
+visibilityOfAllElements()
+visibilityOfAllElementsLocatedBy()
+visibilityOfElementLocated()
+
+Q Implicit Wait : 
+
+Implicit waits are basically your way of telling WebDriver the latency that you want to see if specified web element is not present that WebDriver looking for. So in this case, you are telling WebDriver that it should wait 10 seconds in cases of specified element not available on the UI (DOM).
+
+If wait is set, it will wait for specified amount of time for each findElement/findElements call. It will throw an exception if action is not complete.
+driver.manage().timeouts().implicitlyWait(TimeOut, TimeUnit.SECONDS);	
+
+implicit wait syntax in selenium 4:
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+Explicit Wait : Explicit waits are intelligent waits that are confined to a particular web element. Using explicit waits you are basically telling WebDriver at the max it is to wait for X units of time before it gives up.
+
+If wait is set, it will wait and move on to next step when the provided condition becomes true else it will throw an exception after waiting for specified time. Explicit wait is applicable only once wherever specified.
+WebDriverWait wait=new WebDriverWait(driver, 20);
+
+//Selenium 4 
+WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+
+wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("xpath")));
+
+Fluent wait- It allows users to define polling intervals, exceptions to ignore during the waiting period, and maximum timeout duration.
+maximum time for the web driver to wait for a condition, as well as the frequency with which we want to check the condition before throwing an "ElementNotVisibleException" exception. It checks for the web element at regular intervals until the object is found or timeout happens.
+
+Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
+       .withTimeout(60, SECONDS) // this defines the total amount of time to wait for
+       .pollingEvery(2, SECONDS) // this defines the polling frequency
+       .ignoring(NoSuchElementException.class); 
+
+Fluent wait syntax in selenium 4:
+Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
+        .withTimeout(Duration.ofSeconds(30))
+        .pollingEvery(Duration.ofSeconds(5))
+        .ignoring(NoSuchElementException.class);
+
+﻿Q Findby: It is used to direct the WebDriver to locate that element on a page.
+
+Q how can we run fail test cases in testng
+test output > run testng_fail.xml file
+
+Q how to run same test case multiple times
+@Test(invocationCount = 10)
+public void testCount() {..}
+
+Q lazy loading
+
+Q how to count multiple tabs open
+
+ Set<String> allWindowHandles = driver.getWindowHandles();
+ArrayList<String> tabs = new ArrayList<String>(allWindowHandles);
+System.out.println("No. of tabs: " + tabs.size());
+
+Q how to get unique words and its count
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+public class Tester {
+   public static void main(String[] args) {
+      String str = "Guitar is instrument and Piano is instrument";
+      String[] strArray = str.split("\\s+");
+      Map<String, String> hMap = new LinkedHashMap<String, String>();
+      for(int i = 0; i < strArray.length ; i++ ) {
+         if(!hMap.containsKey(strArray[i])) {
+            hMap.put(strArray[i],"Unique");
+         }
+      }
+      System.out.println(hMap);
+   }
+}
+
+Q how to perform mouse hover action in selenium
+
+WebElement ele = driver.findElement(By.xpath("<xpath>"));
+
+//Creating object of an Actions class
+Actions action = new Actions(driver);
+
+//Performing the mouse hover action on the target element.
+action.moveToElement(ele).perform();
+
+//action.clickAndHold(elem_source).release(elem_destination).build().perform();
+Q how to perform keys operations in selenium
+
+driver.findElement(By.xpath("xpath").sendKeys(Keys.Enter);
+//Keys is class
+//Create object of the Actions class
+Actions actions = new Actions(driver);
+               
+// Enter the Full Name
+WebElement fullName = driver.findElement(By.id("userName"));
+
+// Select the Current Address using CTRL + A
+        actions.keyDown(Keys.CONTROL);
+        actions.sendKeys("a");
+        actions.keyUp(Keys.CONTROL);
+        actions.build().perform();
+        
+        // Copy the Current Address using CTRL + C
+        actions.keyDown(Keys.CONTROL);
+        actions.sendKeys("c");
+        actions.keyUp(Keys.CONTROL);
+        actions.build().perform();
+		
+        //Paste the Address in the Permanent Address field using CTRL + V
+        actions.keyDown(Keys.CONTROL);
+        actions.sendKeys("v");
+        actions.keyUp(Keys.CONTROL);
+        actions.build().perform();
+		
+Q how to right click in selenium
+WebElement fullName = driver.findElement(By.id("userName"));
+Actions actions = new Actions(driver);
+actions.moveToElement(fullName).contextclick().build().perform();
+
+Selenium 4:
+action.contextClick().build().perform();
+
+Q navigate back and forward?
+driver.navigate().back();
+
+driver.navigate().front();
+
+driver.navigate().refresh();
+driver.navigate().to("url");
+
+Q Static class , method , variable 
+
+1. static class - cannot be instantiated 
+2. static method - is a method that belongs to a class rather than an instance of a class. The method is accessible to every instance of a class, but methods defined in an instance are only able to be accessed by that member of a class
+3. Static variables - have a property of preserving their value even after they are out of their scope! Hence, static variables preserve their previous value in their previous scope and are not initialized again in the new scope
+
+Q parameters in testng 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TestSuite" thread-count="3" >
+<parameter name="author" value="Guru99" />
+<parameter name="searchKey" value="India" />
+<test name="testGuru">
+<parameter name="searchKey" value="UK" />
+<classes>
+<class name="parameters.ParameterWithTestNGXML">
+</class>
+</classes>
+</test>
+</suite>
+
+write in test classs-
+ @Parameters({"author","searchKey"})
+
+Q how to execute failed test scripts?
+
+Use IRetryAnalyzer(TestNG Listener) Interface
+
+Q what is interface where you have used in project- 
+WebDriver itself is an Interface. So based on the above statement WebDriver driver = new FirefoxDriver(); we are initializing Firefox browser using Selenium WebDriver. It means we are creating a reference variable (driver) of the interface (WebDriver) and creating an Object. 
+Here WebDriver is an Interface as mentioned earlier and FirefoxDriver is a class.
+
+Q Reverse a Number using a while loop in Java
+public class ReverseNumber {
+
+    public static void main(String[] args) {
+
+        int num = 1234, reversed = 0;
+
+        while(num != 0) {
+            int digit = num % 10;
+            reversed = reversed * 10 + digit;
+            num /= 10;
+        }
+
+        System.out.println("Reversed Number: " + reversed);
+    }
+}
+number = 1234
+remainder = 1234 % 10 = 4
+reverse = 0 * 10 + 4 = 0 + 4 = 4
+number = 1234 / 10 = 123
+
+Q Upload Files In Selenium WebDriver Using Robot Class
+Robot class is an AWT class package in Java. This is also a very good option to choose for Upload file in selenium. This will help to automate windows based Alert or pop up
+
+public void fileUpload (String path) {
+        StringSelection strSelection = new StringSelection(path);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(strSelection, null);
+ 
+        Robot robot = new Robot();
+  
+        robot.delay(300);
+     // press Contol+V for pasting
+     rb.keyPress(KeyEvent.VK_CONTROL);
+     rb.keyPress(KeyEvent.VK_V);
+ 
+    // release Contol+V for pasting
+    rb.keyRelease(KeyEvent.VK_CONTROL);
+    rb.keyRelease(KeyEvent.VK_V);
+ 
+    // for pressing and releasing Enter
+    rb.keyPress(KeyEvent.VK_ENTER);
+    rb.keyRelease(KeyEvent.VK_ENTER);
+    }
+	
+or
+
+if html tag is input type and attribute is "file" type:
+
+element = driver.find_element_by_id("uploaded_file");
+element.sendkeys("C:\file.txt");
+
+Q how do you count total number of rows in a Web table?
+List<WebElement> rows = driver.findElements(by.tagname("tr")); rows.size()
+
+Q how to find all links of webpage
+//Get list of web-elements with tagName  - a
+ List<WebElement> allLinks = driver.findElements(By.tagName("a"));
+ 
+ //Traversing through the list and printing its text along with link address
+ for(WebElement link:allLinks){
+ System.out.println(link.getText() + " - " + link.getAttribute("href"));
+ }
+ 
+Q how to find broken links 
+ //Storing the links in a list and traversing through the links
+        List<WebElement> links = driver.findElements(By.tagName("a"));
+ 
+        // This line will print the number of links and the count of links.
+        System.out.println("No of links are "+ links.size());  
+      
+        //checking the links fetched.
+        for(int i=0;i<links.size();i++)
+        {
+            WebElement E1= links.get(i);
+            String url= E1.getAttribute("href");
+            verifyLinks(url);
+        }
+        
+        driver.quit();
+    }
+        
+    public static void verifyLinks(String linkUrl)
+    {
+        try
+        {
+            URL url = new URL(linkUrl);
+ 
+            //Now we will be creating url connection and getting the response code
+            HttpURLConnection httpURLConnect=(HttpURLConnection)url.openConnection();
+            httpURLConnect.setConnectTimeout(5000);
+            httpURLConnect.connect();
+            if(httpURLConnect.getResponseCode()>=400)
+            {
+             System.out.println(linkUrl+" - "+httpURLConnect.getResponseMessage()+"is a broken link");
+            }    
+       
+            //Fetching and Printing the response code obtained
+            else{
+                System.out.println(linkUrl+" - "+httpURLConnect.getResponseMessage());
+            }
+        }catch (Exception e) {
+      }
+   }
+   
+Q List of classes implementing WebDriver
+The major implementation classes of WebDriver interface are ChromeDriver, EdgeDriver, FirefoxDriver, InternetExplorerDriver
+
+Q how to get text of hidden element 
+JavascriptExecutor executor = (JavascriptExecutor)driver;
+String text= executor.executeScript("document.getElementById('versionInfo').innerHTML");
+ 
+ Difference between ArrayList and Vector
+ArrayList and Vector both implements List interface and maintains insertion order.
+
+However, there are many differences between ArrayList and Vector classes that are given below.
+
+ArrayList	Vector
+1) ArrayList is not synchronized.	Vector is synchronized.
+2) ArrayList increments 50% of current array size if the number of elements exceeds from its capacity.	Vector increments 100% means doubles the array size if the total number of elements exceeds than its capacity.
+3) ArrayList is not a legacy class. It is introduced in JDK 1.2.	Vector is a legacy class.
+4) ArrayList is fast because it is non-synchronized.	Vector is slow because it is synchronized, i.e., in a multithreading environment, it holds the other threads in runnable or non-runnable state until current thread releases the lock of the object.
+5) ArrayList uses the Iterator interface to traverse the elements.	A Vector can use the Iterator interface or Enumeration interface to traverse the elements.
+
+Q Java program to check if two strings are anagrams
+
+import java.util.Arrays;
+
+class Main {
+  public static void main(String[] args) {
+    String str1 = "Race";
+    String str2 = "Care";
+    
+    str1 = str1.toLowerCase();
+    str2 = str2.toLowerCase();
+
+    // check if length is same
+    if(str1.length() == str2.length()) {
+
+      // convert strings to char array
+      char[] charArray1 = str1.toCharArray();
+      char[] charArray2 = str2.toCharArray();
+
+      // sort the char array
+      Arrays.sort(charArray1);
+      Arrays.sort(charArray2);
+
+      // if sorted char arrays are same
+      // then the string is anagram
+      boolean result = Arrays.equals(charArray1, charArray2);
+
+      if(result) {
+        System.out.println(str1 + " and " + str2 + " are anagram.");
+      }
+      else {System.out.println(str1 + " and " + str2 + " are not anagram.");
+      }
+    }
+    else {
+      System.out.println(str1 + " and " + str2 + " are not anagram.");
+    }
+  }
+}
+
+Q take screenshot
+//Take the screenshot
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        
+        //Copy the file to a location and use try catch block to handle exception
+        try {
+            FileUtils.copyFile(screenshot, new File("C:\\projectScreenshots\\homePageScreenshot.png"));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+	
+or
+
+//Use TakesScreenshot method to capture screenshot
+TakesScreenshot screenshot = (TakesScreenshot)driver;
+//Saving the screenshot in desired location
+File source = screenshot.getScreenshotAs(OutputType.FILE);
+//Path to the location to save screenshot
+FileUtils.copyFile(source, new File("./SeleniumScreenshots/Screen.png"));
+	
+Q how to print all options from list(dropdown)
+Select dropDown = new Select(Driver.findElement()));
+List<WebElement> e = dropDown.getOptions();
+int itemCount = e.size();
+
+for(int l = 0; l < itemCount; l++)
+{
+    System.out.println(e.get(l).getText());
+}
+
+Q how to switch to iframe 
+driver.switchTo().frame(0);
+driver.switchTo().frame(1);
+driver.switchTo().frame("iframe1");
+driver.switchTo().frame("id of the element");
+// switching to parent frame driver.switchTo().defaultContent();
+
+Q how to handle hiddenelement
+
+Javascript js=(Javascript)driver;
+js.executescript("docuemnt.getelementbyclassname("text").click;
+it hits dom directly
+
+Q typecasting in java
+Widening Casting (automatically) - converting a smaller type to a larger type size
+byte -> short -> char -> int -> long -> float -> double
+int myInt = 9;
+ double myDouble = myInt; // Automatic casting: int to double
+
+Narrowing Casting (manually) - converting a larger type to a smaller size type
+double -> float -> long -> int -> char -> short -> byte
+ double myDouble = 9.78;
+ int myInt = (int) myDouble; // Manual casting: double to int
+
+Q how to remove numbers form string 
+Scanner sc = new Scanner(System.in);
+    String inp; // Variable 'inp',for storing the input
+    System.out.println("Enter your string:");
+    inp = sc.nextLine();
+    System.out.println("After deletion of any digits,the string is:");
+    inp = inp.replaceAll("[0123456789]",""); 
+	
+Q find duplicate in string and print
+public class Example {
+   public static void main(String argu[]) {
+      String str = "beautiful beach";
+      char[] carray = str.toCharArray();
+      System.out.println("The string is:" + str);
+      System.out.print("Duplicate Characters in above string are: ");
+      for (int i = 0; i < str.length(); i++) {
+         for (int j = i + 1; j < str.length(); j++) {
+            if (carray[i] == carray[j]) {
+               System.out.print(carray[j] + " ");
+               break;
+            }
+         }
+      }
+   }
+}
+
+Q hash map
+public static void main(String[] args) 
+    { 
+        // Create an empty hash map 
+        HashMap<String, Integer> map = new HashMap<>(); 
+  
+        // Add elements to the map 
+        map.put("vishal", 10); 
+        map.put("sachin", 30); 
+        map.put("vaibhav", 20); 
+  
+        // Print size and content 
+        System.out.println("Size of map is:- "
+                           + map.size()); 
+        System.out.println(map); 
+  
+        // Check if a key is present and if 
+        // present, print value 
+        if (map.containsKey("vishal")) { 
+            Integer a = map.get("vishal"); 
+            System.out.println("value for key"
+                               + " \"vishal\" is:- " + a); 
+        } 
+    } 
+}
+Size of map is:- 3
+{vaibhav=20, vishal=10, sachin=30}
+value for key "vishal" is:- 10
+
+Q how to get all options from dropdown
+Select s = new Select(driver.findElement(By.xpath("//select[@name=’selType’]")));
+      // getting the list of options in the dropdown with getOptions()
+      List <WebElement> op = s.getOptions();
+      int size = op.size();
+      for(int i =0; i<size ; i++){
+         String options = op.get(i).getText();
+         System.out.println(options);
+      }
+		
+Q Architecture of web application
+
+Q Loops : for, while, do while 
+When to use	If the number of iteration is fixed, it is recommended to use for loop.	
+Syntax	
+for(init;condition;incr/decr){  
+// code to be executed 
+}
+//for loop  
+for(int i=1;i<=10;i++){  
+System.out.println(i);  
+} 
+If the number of iteration is not fixed, it is recommended to use while loop.
+while(condition){  
+//code to be executed 
+}
+//while loop  
+int i=1;  
+while(i<=10){  
+System.out.println(i);  
+i++;  
+} 
+If the number of iteration is not fixed and you must have to execute the loop at least once, it is recommended to use the do-while loop.
+do{  
+//code to be executed  
+}while(condition); 
+//do-while loop  
+int i=1;  
+do{  
+System.out.println(i);  
+i++;  
+}while(i<=10); 
+
+Q ports of http, https
+HTTP uses port 80 and HTTPS uses port 443
+
+Q remove all whitespace without using replaceAll
+public class RemoveAllSpace {  
+    public static void main(String[] args) {  
+        String str = "India     Is My    Country";  
+        //1st way  
+        String noSpaceStr = str.replaceAll("\\s", ""); // using built in method  
+        System.out.println(noSpaceStr);  
+        //2nd way  
+        char[] strArray = str.toCharArray();  
+        StringBuffer stringBuffer = new StringBuffer();  
+        for (int i = 0; i < strArray.length; i++) {  
+            if ((strArray[i] != ' ') && (strArray[i] != '\t')) {  
+                stringBuffer.append(strArray[i]);  
+            }  
+        }  
+        String noSpaceStr2 = stringBuffer.toString();  
+        System.out.println(noSpaceStr2);  
+    }  
+}  
+
+Q Read data from excel
+public static void main (String [] args) throws IOException{
+//Path of the excel file
+FileInputStream fs = new FileInputStream("D:\\DemoFile.xlsx");
+//Creating a workbook
+XSSFWorkbook workbook = new XSSFWorkbook(fs);
+XSSFSheet sheet = workbook.getSheetAt(0);
+Row row = sheet.getRow(0);
+Cell cell = row.getCell(0);
+System.out.println(sheet.getRow(0).getCell(0));
+Row row1 = sheet.getRow(1);
+Cell cell1 = row1.getCell(1);
+System.out.println(sheet.getRow(0).getCell(1));
+Row row2 = sheet.getRow(1);
+Cell cell2 = row2.getCell(1);
+System.out.println(sheet.getRow(1).getCell(0));
+Row row3 = sheet.getRow(1);
+Cell cell3 = row3.getCell(1);
+System.out.println(sheet.getRow(1).getCell(1));
+//String cellval = cell.getStringCellValue();
+//System.out.println(cellval);
+
+Q Css selector 
+css=input[type=’submit’]”
+
+Q Architecture of webdriver
+WebDriver driver = new chromeDriver();
+WebDriver is a public interface that defines the reference variable (driver) of interface types. 
+Any object assigned to this driver variable must be an instance of the class (ChromeDriver or other browser driver class) that implements the interface.
+
+What Does the Selenium Client Library Do? 
+The Selenium Client Library supports multiple client libraries, such as Java, Python, .NET, Ruby and more. Selenium’s language binding feature allows Selenium to support multiple languages. The client library and language binding feature are used based on the programming language of the test scripts. For example, if you need to use the browser driver in Java, you must use the Java language bindings. 
+
+How Does JSON Wire Protocol Work? 
+JSON is a lightweight data-interchange that lets clients and servers send and receive requests and responses. JSON Wire Protocol transfers requests between Client Library and browser driver HTTP servers through REST APIs.
+
+Browser Drivers
+Each browser has a specific browser driver. Browser drivers can be downloaded from Selenium's official site. Set the path of the driver before the object is created as follows:
+
+System.setProperty(“webdriver.chrome.driver”, E:\\chromedriver.exe”);
+
+Q Reverse a number
+Example 1: Reverse a Number using a while loop in Java
+class Main {
+  public static void main(String[] args) {
+
+    int num = 1234, reversed = 0;
+
+    while(num != 0) {
+    
+      int remainder = num % 10;
+      reversed = reversed * 10 + remainder;
+      num /= 10;
+    }
+
+    System.out.println("Reversed Number: " + reversed);
+  }
+}
+
+Q Sort string arr
+SortStringArrayExample2.java
+
+import java.util.Arrays;  
+public class SortStringArrayExample2  
+{  
+public static void main(String args[])   
+{  
+//defining an array of type string  
+String[] countries = {"Wood apple", "Blackberry", "Date", "Naseberry", "Tamarind", "Fig", "Mulberry",  "Apple", "Plum",  "Orange", "Custard apple",  "Apricot"};  
+//sorts string array in alphabetical order or ascending order  
+Arrays.sort(countries);  
+//prints the sorted string array in ascending order  
+System.out.println(Arrays.toString(countries));  
+}  
+}  
+
+Q Reverse order sort
+import java.util.*;  
+public class SortStringArrayExample1  
+{  
+public static void main(String args[])   
+{  
+//defining an array of type String  
+String[] countries = {"Zimbabwe", "South-Africa", "India", "America", "Yugoslavia", " Australia", "Denmark", "France", "Netherlands", "Italy", "Germany"};  
+//sorts array in descending order  
+Arrays.sort(countries, Collections.reverseOrder());   
+//prints the sorted string array in descending order  
+System.out.println(Arrays.toString(countries));  
+}  
+}  
+
+Q Annotations in testng
+@BeforeMethod: This will be executed before every @test annotated method.
+@AfterMethod: This will be executed after every @test annotated method.
+@BeforeClass: This will be executed before first @Test method execution. It will be executed one only time throughout the test case.
+@AfterClass: This will be executed after all test methods in the current class have been run
+@BeforeTest: This will be executed before the first @Test annotated method. It can be executed multiple times before the test case.
+@AfterTest: A method with this annotation will be executed when all @Test annotated methods complete the execution of those classes inside the <test> tag in the TestNG.xml file.
+@BeforeSuite: It will run only once, before all tests in the suite are executed.
+@AfterSuite: A method with this annotation will run once after the execution of all tests in the suite is complete.
+@BeforeGroups: This method will run before the first test run of that specific group.
+
+Q Groups in testng
+public class Test1 
+{
+  @Test(groups = { "group1", "group2" })
+  public void test_method1()
+  {
+    //Test implementation
+  }
+ 
+  @Test(groups = {"group2"} )
+  public void test_method2()
+  {
+    //Test implementation
+  }
+ 
+  @Test(groups = {"group1"})
+  public void test_method3()
+  {
+    //Test implementation
+  }
+}
+
+Run group 
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TestNG Group Test">
+    <test verbose="2" preserve-order="true">
+        <groups>
+            <run>
+              <include name = "group1"></include>
+              <include name = "group2"></include>
+            </run>
+        </groups>
+        <classes>
+            <class name="example1.Test1"></class>
+        </classes>
+    </test>
+</suite>
+
+Q Depenedency in TestNG?
+
+@Test
+public void login(0\)
+{
+login();
+}
+@Test
+public void homepage(dependsonmethods = login)
+{
+homepage();
+}
+
+Q handling windows
+String parent=driver.getWindowHandle();
+
+Set<String>s=driver.getWindowHandles();
+
+// Now iterate using Iterator
+Iterator<String> I1= s.iterator();
+
+while(I1.hasNext())
+{
+String child_window=I1.next();
+if(!parent.equals(child_window))
+{
+driver.switchTo().window(child_window);
+}
+
+or 
+
+String handle=driver.getWindowHandle();
+for(String handle :driver.getWindowHandles())
+{
+driver.switchTo().window(handle);
+}
+
+Selenium 4:
+driver.switchTo().newWindow(WindowType.TAB);
+
+Q Open new window in selenium 4:
+driver.get("https://www.google.com/");
+// Opens a new window and switches to new window
+driver.switchTo().newWindow(WindowType.WINDOW);
+// Opens LambdaTest homepage in the newly opened window
+driver.navigate().to("https://www.lambdatest.com/");
+
+Q Open a new Tab in Selenium 4
+// Opens a new window and switches to new window
+driver.switchTo().newWindow(WindowType.TAB);
+// Opens LambdaTest homepage in the newly opened tab
+driver.navigate().to("https://www.lambdatest.com/");
+
+Q Which SQL statements can be used in Database Testing?
+
+Answer: All DDL, DML, DCL, and TCL statements of SQL can be used in database testing,
+
+(i) DDL (Data Definition Language): All statements related to this can be used in defining the database structure or schema.
+
+Statements: CREATE, ALTER, DROP, TRUNCATE, COMMENT, and RENAME
+
+(ii) DML (Data Manipulation Language): All statements related to this can be used for managing data within schema objects.
+
+Statements: SELECT, INSERT, UPDATE, DELETE, MERGE, CALL, EXPLAIN PLAN, and LOCK TABLE.
+
+(iii) DCL (Data Control Language): GRANT Statement and REVOKE Statement.
+
+(iv) TCL (Transaction Control Language): All statements related to this can be used to manage the changes made by DML statements. Using TCL, statements can be grouped together into logical transactions.
+
+Statements: COMMIT, SAVEPOINT, ROLLBACK, and SET TRANSACTION.
+
+Q difference between agile and scrum
+The key difference between Agile and Scrum is that while Agile is a project management philosophy that utilizes a core set of values or principles, Scrum is a specific Agile methodology that is used to facilitate a project
+
+Q Smoke Testing	Sanity Testing
+Smoke Testing is performed to ascertain that the critical functionalities of the program is working fine	Sanity Testing is done to check the new functionality/bugs have been fixed
+The objective of this testing is to verify the "stability" of the system in order to proceed with more rigorous testing	The objective of the testing is to verify the "rationality" of the system in order to proceed with more rigorous testing
+This testing is performed by the developers or testers	Sanity testing in software testing is usually performed by testers
+Smoke testing is usually documented or scripted	Sanity testing is usually not documented and is unscripted
+Smoke testing is a subset of Acceptance testing	Sanity testing is a subset of Regression Testing
+Smoke testing exercises the entire system from end to end	Sanity testing exercises only the particular component of the entire system
+Smoke testing is like General Health Check Up	Sanity Testing is like specialized health check up
+
+Q Differene between Web service and API
+Web service facilitates interaction between two machines over a network.
+Web services are a type of API that must be accessed through a network connection
+It provides support for HTTP protocol.
+Web service supports XML.
+It is used for REST, SOAP, and XML-RPC for communication.
+
+An API, or application programming interface, is a set of protocols that enable different software components to communicate and transfer data. 
+An API acts as an interface between two different applications so that they can communicate with each other.
+It provides support for HTTP/s protocol.
+API supports XML and JSON.
+It is used as an interface for communication between two applications.
+
+Difference between Webservice and API
+The APIs that interact over HTTP protocol (need internet), we call them as webservices. 
+For example, the cleartrip/makemytrip is a webservice, because, in order to display the search results, they need to interact over HTTP protocol (need Internet connection) with Indigo/AirIndia servers
+The things that does not need internet or do not interact over HTTP protocol, we call them as API. 
+For example, in order to work with Selenium, we need to integrate our java program with Selenium jar files.
+To interact with Selenium API jar files, we don’t need internet or http protocol. 
+
+Q HTTP response status codes
+Informational responses ( 100 – 199 )
+100 Continue: This status code indicates that the initial part of the request has been received and the server would like the client to send the rest of it.
+101 Switching Protocols: This status code is used to inform the client that the server is changing the protocol that is being used in the connection.
+102 Processing: This status code is an interim response that indicates the server is still processing the request.
+
+Successful responses ( 200 – 299 )
+200 (OK)This status code indicates that the request was successful, and the server returned the requested data.
+201 (Created)This status code means that the request was successful, and the server created a new resource.
+202 (Accepted)The request has been accepted for processing, but the processing has not been completed. 
+204 (No Content)This status code indicates that the request was successful, but the server did not return any data.
+
+Redirects ( 300 – 399 )
+301 (Moved Permanently)The URL of the requested resource has been changed permanently. The new URL is given by the Location header field in the response.
+302 (Found)The URL of the requested resource has been changed temporarily. The new URL is given by the Location field in the response. 
+304 Not Modified
+307 Temporary Redirect
+308 Permanent Redirect
+
+Client errors ( 400 – 499 )
+400 (Bad Request)The request could not be understood by the server due to incorrect syntax. 
+401 (Unauthorized)This status code lets the client know that it is not authorized to access the requested resource.(authorization issue)
+403 (Forbidden)This status code communicates that the client is authenticated but not authorized to access the requested resource.(access is denied to access resource)
+404 (Not Found)This status code indicates that the requested resource was not found on the server.
+405 (Method Not Allowed)
+406 (Not Acceptable)
+
+Server errors ( 500 – 599 )
+500 internal server error - This generic error code indicates the server encountered an unexpected condition that prevented it from fulfilling the request.
+502 Bad Gateway: This status code indicates that a server acting as a gateway or proxy received an invalid response from an upstream server.
+503 Service Unavailable: This status code is returned when the server is temporarily unable to handle the request. 
+
+What are the advantages of API Testing?
+Faster bug fixes: API testing works quickly to provide a solution, thus it helps to diagnose problems earlier in the development of the system allowing for efficient bug detection and removal.
+Reduced costs: API testing provides quick release of results, easier to maintain, thus reducing the cost of testing.
+Universal language support: API testing provides support for many different languages like Javascript, Ruby, Python, and PHP. Formats like XML, and JSON are supported during API testing.
+Better test coverage: API testing provides better test coverage as it drills down to the layers beneath the UI to ensure databases are communicating correctly with one another.
+
+disadvantages of API Testing?
+Technical skills: API testing requires skilled and trained testers
+Time-consuming: API testing is time-consuming as it requires time to develop and execute test scripts for APIs.
+Limited documentation: Limited documentation of the API makes it difficult for the testers to understand how the API should behave in response to a particular input.
+Cost: API testing using automated tools can be expensive and requires a significant budget thus increasing the cost of testing.
+Security: APIs can introduce security vulnerabilities if not properly tested and secured.
+
+What needs to be verified in API testing?
+API testing helps to verify the correctness of data and responses. The API should return the return correct data and resposnses according to the specified requirements and expected behavior.
+API testing should verify the functionality and behavior. The API should perform its intended functions accurately.
+HTTP status codes of the API needs to verified.
+Error codes if the APIs are expected to throw an error.
+Authorization details.
+
+What is the purpose of the request and response body in API testing?
+The request body is used to send and receive data such as input parameters, or data to create/ update resources via the REST API. The response body is the data API send to the client.
+
+What is the purpose of the request and response headers in API testing?
+The request headers are used to specify a content type, caching, authentication, etc. The response header can provide information about the server, caching, etc.
+
+API mocking?
+API mocking is practice of simulating the behavior of an API endpoint during testing without actually invoking the real API. It is beneficial during the development stage.
+
+How do you ensure the security of APIs in your tests?
+Use secure communication protocols like HTTPs to encrypt data transmitted between client and server.
+It is important to properly implement authentication and authorization mechanisms to ensure that only authorized users can access the API endpoints and perform the authorized actions.
+Ensure that all the input data in the API requests are properly authorized, validated, and sanitized to prevent injection attacks and cross-site scripting attacks.
+
+What protocols can be tested using API Testing?
+HTTP/HTTPS
+REST
+SOAP
+JMS
+UDDI
+
+different types of error responses in API testing?
+Validation errors: Validation errors occur when the API request does not meet the validation criteria defined by the API.
+HTTP error status codes: These can be client-side status codes or server-side status codes. There are standard HTTP status codes like 4xx or 5xx that indicate errors in the API request or response.
+Custom error messages: These are the customer error messages that are returned by the API in case of errors or exceptions.
+
+How do you handle error responses in your API tests?
+Clear error messages: One of the best practice to handle error responses is to provide clear and helpful error messages that explain the cause of the error and the solution to the error.
+Error logging: Best practice is to implement error logging and monitoring tools that can help track, analyze, and resolve errors in API testing.
+Use consistent error codes: It is important to use consistent and meaningful error messages that indicate the type and severity of the error.
+
+purpose of API documentation in API testing?
+API documentation is a technical document that describes the API in detail. It includes instructions on how to effectively use and integrate API and provides updates regarding API’s lifecycle such as new versions. It is primary resource explaining what is possible with the API and how to get started with the API.
+
+different bugs that can be found in API testing?
+Duplicate or missing functionality.
+Improper messaging.
+Multi-threading issues.
+Security and performance issues.
+Reliability issues.
+
+Q REST(Representational State Transfer) 
+
+It is an architectural design pattern used to develop web services. 
+It is faster in speed and more cacheable. 
+It inherits only the security measures concerning the protocol that have been implemented.
+Ideal for web applications needing scalability, flexibility, and simplicity
+Uses HTTP methods and can handle various data formats-JSON, XML, HTML, and plain text, mainly JSON.
+
+SOAP (Simple Object Access Protocol)
+It is a strict protocol used to build secure APIs.  
+It is slower in speed and not cacheable.  
+It is able to define its own security measures.
+Suitable for enterprise-level applications requiring high security, reliability, and strict standards.
+Uses XML for message format and supports multiple transport protocols.
+SOAP (Simple Object Access Protocol): A protocol with strict standards, relies on XML, and supports complex operations.
+REST (Representational State Transfer): An architectural style that uses HTTP requests, supports multiple formats (JSON, XML), and is stateless and simpler compared to SOAP.
+
+Path Parameters
+Path parameters are used to identify a specific resource or a set of resources. They are part of the URI path itself and are typically enclosed in curly braces {} or indicated by a specific placeholder.
+Example:
+URI: https://api.example.com/users/{userId}
+With a specific user ID: https://api.example.com/users/123
+
+Query Parameters
+Query parameters are used to filter, sort, or specify additional details for the resource being requested. They appear after a question mark ? in the URI and are usually in the form of key-value pairs.
+Example:
+URI: https://api.example.com/users?age=30&sort=name
+In this example:
+age=30 is a query parameter that filters the users to only those who are 30 years old.
+
+Q URIs (Uniform Resource Identifiers) are used to identify and access resources on the web. 
+Uniform Resource Identifier (URI): A URI is a string that provides a way to identify a resource. It is a broad term that includes URLs (Uniform Resource Locators) and URNs (Uniform Resource Names).
+Uniform Resource Locator (URL): A URL is a specific type of URI that not only identifies a resource but also provides a means to locate it (usually through a web address). For example, https://api.example.com/users/123 is a URL that locates a specific user's data in an API.
+URL is a Uniform Resource Locator and is the address we use to access websites and web applications
+Endpoint: In API documentation, an endpoint refers to a specific URI where API resources can be accessed. For example, /users could be an endpoint that returns a list of users, while /users/123 might return the details of a specific user with ID 123.
+URL is an address for a particular web resource like webpage or image. URI is used to identify REST webservice running on a server (with/without parameter) or we can also say that REST webservice uses URI to identify resources
+Base URI
+The host domain of any website never changes. It is called as ‘Base URI’
+
+The syntax of complete URI can be constructed as below:
+
+URI = protocol://Domain/Resource[? query parameter in the form of key=value pair]&[another query parameter]…
+https://www.google.com/search?q=opensource 
+
+https: protocol, www.google.com - domain, search - resource , q=opensource - query 
+
+url: whole uri without resource 
+urn: whole uri without protocol
+
+Q 3 tier architecture-All web application comes under this architecture . It consists of three layers.
+
+Client / Presentation-  It is the presentation layer from which the user sends the request. Like Browsers.
+Business Logic- As soon as the user sends the request from the client layer corresponding business logic gets executed. Business logic will pass the request to the database layer and vice versa.
+Database- As per the request from the business logic database provide the set of data.
+
+Sample postman script to set enviroment variable and check status code:
+
+1. post : https://jsonplaceholder.typicode.com/users
+var jsonData = pm.response.json();
+pm.environment.set("post_id", jsonData.id);
+pm.test("Status code is 201", function () {
+    pm.response.to.have.status(201);
+});
+
+2. https://jsonplaceholder.typicode.com/posts/{{post_id}}
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+var jsonData = pm.response.json();
+pm.test("Post ID matches", function () {
+    pm.expect(jsonData.id).to.eql(parseInt(pm.environment.get("post_id")));
+});
+// Check if the Content-Type header is present and correct
+pm.test("Content-Type is present and correct", function () {
+    pm.response.to.have.header("Content-Type");
+    pm.expect(pm.response.headers.get("Content-Type")).to.eql("application/json");
+});
+
+pm.test("Post title is foo", function () {
+    pm.expect(jsonData.title).to.includes("et");
+});
+
+pm.test("Post body is bar", function () {
+    pm.expect(jsonData.body).to.includes("delectus");
+});
+
+REST stands for REpresentational State Transfer. REST is a web standards-based architecture and uses HTTP Protocol for data communication.
+In REST architecture, a REST Server simply provides access to resources, and a REST client accesses the resources.
+Here each resource is identified by URIs/ global IDs. REST uses various representations to represent a resource like text, JSON, and XML.
+Nowadays JSON is the most popular format being used in web services.
+
+What is RESTFul Web Services?
+Web services developed in the REST style are referred to as RESTful web services. These web services use HTTP methods to implement the concept of REST architecture.
+
+What is a “Resource” in REST?
+REST architecture treats any content as a resource, which can be either text files, HTML pages, images, videos or dynamic business information.
+
+Q two kinds of Web Services which are quite popular.
+
+1. SOAP (Simple Object Access Protocol) which is an XML-based way to expose web services.
+2. Web services developed using REST style are known as RESTful web services. These web services use HTTP methods to implement the concept of REST architecture.
+
+What are SOAP Web services and how does it work?
+The SOAP (Simple Object Access Protocol) is defined as an XML-based protocol. It is known for designing and developing web services as well as enabling communication between applications developed on different platforms using various programming languages over the Internet. It is both platform and language independent
+
+Q What are the advantages of performing API testing?
+2. Test for core functionality
+3. language independent
+4. Get to know issues at earlier stage
+5. Time effectively
+
+Q What are the components of an HTTP request?
+An HTTP request has five elements:
+An HTTP method (discussed below) that defines the action.
+A URI (Uniform Resource Identifier) is the resource’s identifier on the server.
+An HTTP Version, e.g. HTTP v1.1.
+The Request Header carries metadata (as key-value pairs) for the HTTP Request message. Client (or browser) type, client-supported formats, message body formats, cache settings, and other information are examples of metadata.
+The Request Body represents the data sent by the client to the API.
+
+How do you validate response content in API testing?
+Answer: Response content validation involves:
+Checking the structure and data types of the response.
+Verifying key-value pairs in JSON or XML.
+Using JSON schema validation.
+Ensuring the response matches the expected data and formats.
+Checking for specific values and patterns.
+
+Q Salesforce 
+is a leading cloud-based customer relationship management (CRM) platform that provides various software solutions and a suite of applications to help businesses manage their customer relationships and interactions efficiently. Here’s a detailed overview of Salesforce:
+
+Benefits of Salesforce
+Scalability: Suitable for businesses of all sizes, from small startups to large enterprises.
+Cloud-Based: Accessible from anywhere with an internet connection, reducing the need for on-premises hardware.
+Flexibility: Highly customizable to fit various business processes and industry needs.
+Ecosystem: A vast array of third-party applications and integrations available through AppExchange.
+Innovation: Regular updates and new features keep the platform cutting-edge.
+
+Key Features and Components
+1.Customer Relationship Management (CRM):
+Sales Cloud: Helps sales teams manage leads, opportunities, and customer interactions, and automate the sales process.
+Service Cloud: Provides tools for customer service teams to manage customer support cases and interactions across multiple channels.
+Marketing Cloud: Offers marketing automation tools to manage email campaigns, social media, advertising, and customer journeys.
+Commerce Cloud: Facilitates B2C(Buisness to customer) and B2B(Businesss to Buisness) commerce experiences with tools for creating and managing online stores.
+
+2. Platform and Ecosystem:
+Salesforce Platform (formerly Force.com): Allows developers to build custom applications and integrations using Salesforce's tools and APIs.
+AppExchange: A marketplace for third-party applications and integrations that extend Salesforce's functionality.
+Lightning Platform: Provides a modern UI and development framework for building responsive applications and components.
+
+3.Analytics and AI:
+Tableau: Provides powerful data visualization and business intelligence tools.
+Einstein Analytics: Offers AI-driven analytics and insights to help businesses make data-driven decisions.
+
+4.Integration and Customization:
+MuleSoft: Enables integration of Salesforce with other systems and data sources.
+Custom Objects and Fields: Allows businesses to tailor Salesforce to their specific needs by creating custom data models.
+
+Salesforce Sales Cloud 
+is a customer relationship management (CRM) platform designed to support sales, marketing and customer support in both business-to-business (B2B) and business-to-customer (B2C) contexts.
+It focuses on lead and opportunity management, helping organizations grow their revenue.
+
+Service Cloud helps support agents provide excellent customer service and resolve issues before they become a problem.
+Service Cloud enables users to automate service processes, streamline workflows and find key articles, topics and experts to support customer service agents. 
+
+Q Object-level security (OLS) in Salesforce controls access to individual objects, such as accounts, contacts, opportunities, etc. It determines which users can access specific objects and what actions they can perform on those objects. 
+
+Q Salesforce terms
+CRM- Customer relationship management
+CPQ- Configuring Pricing quote
+CLM - Contract lifecycle management
+OM - Order management
+
+Kafka, Boomi are integration  between life cycle
+
+CPQ -migrating from surf to cpq, enhancement of surf is cpq 
+
+SURF transaction- create account in surf(after getting leads) , opty (opportunity) approval, closure in surf, it is legacy system(for purchasing software product)
+
+EMS- entitlement management system (sold id)  usually represents an agreement or contract between a company and its customers regarding the level of service or support they are entitled to receive.
+
+Order to Cash process - making order and getting revenue of the order 
+
+Suspect - Suspecting that particular customer might buy somehing, account is created in surf and sync with crm
+Prospect - in next stages ,opportunity and order gets created 
+Customer - when purchase the product and contract gets created
+
+after creating account > create opportunity in crm> create quote (takes to cpq system)   > CLM(Contract lifecycle) > OM(order management > Close in surf & EMS 
+
+Microsoft dynamics cem -Scalenow
+B2B - Business to Business
+
+Service now is microsoft dynamics crm
+B2C - Business to consumer
+
+CRM process-
+Sales, Marketing, Customer service
+
+Marketing Campaign > leads> Oppotunities,accounts,contacts > Quotes > order 
+Finance and operations
+
+ACV(annual contract value)
+
+CLM(Contract lifecycle management)
+
+Salesforce lifecycle - Campaigns(will be conducted by marketing team) > (Suspect)-Suspecting that particular customer might buy something, account is created > Create a opportunity in salesforce if customer shows interest > create and send quote to customer > create a contract(product details and cost) when customer confirms of buying product > create agreement > create Sales order (upsale,renew sale) 
+
+Q Sequence of TestNG annotations
+
+Q difference between throws and throws
+
+Q foreign, unique , primary key
+
+Q Overloading, overriding
+
+Q truncation can be rollback? ans is No
+
+Q Constructors
+
+Q CSS locators
+
+using id:
+input[id='firstName']
+or
+input#firstName
+
+using class attribute:
+
+textarea[class='form-control']
+or
+textarea.form-control
+
+using other attribute
+textarea[placeholder='Current Address']
+
+Combine the ID and other Attributes of the web element 
+textarea#currentAddress[placeholder='Current Address']
+
+Combine the Class and other Attributes of the web element
+textarea.form-control[placeholder='Current Address']
+
+contains the text: ‘’*
+input[title*='qa']
+
+locate a web element when one element is the direct parent/child of another element?
+Parent_locator > child_locator
+
+div>textarea[placeholder='Current Address']
+
+locate a web element using the starting text?
+input[id^='userN']
+
+locate a web element using the Ending text
+input[id$='ame']
+
+Q how can we send text in different ways in selenium 
+> use sendkeys and use javascriptexecutor 
+
+Javascriptexecutor js=(JavascriptExecutor) driver;
+js.executescript("document.getElementbyid("login").value=test);
+
+//document will provide full access to dom
+Q procedures , functions, triggers
+
+Q Different types of join
+> left ,right ,inner, full outer join
+
+Inner join: The INNER JOIN keyword selects records that have matching values in both tables.
+
+SELECT column_name(s)
+FROM table1
+INNER JOIN table2
+ON table1.column_name = table2.column_name;
+
+SELECT ProductID, ProductName, CategoryName
+FROM Products
+INNER JOIN Categories ON Products.CategoryID = Categories.CategoryID;
+
+left join: The LEFT JOIN keyword returns all records from the left table (table1), and the matching records from the right table (table2).
+
+SELECT column_name(s)
+FROM table1
+LEFT JOIN table2
+ON table1.column_name = table2.column_name;
+
+right join: The RIGHT JOIN keyword returns all records from the right table (table2), and the matching records from the left table (table1)
+
+SELECT column_name(s)
+FROM table1
+RIGHT JOIN table2
+ON table1.column_name = table2.column_name;
+
+full outer join: FULL OUTER JOIN keyword returns all records when there is a match in left (table1) or right (table2) table records.
+
+SELECT column_name(s)
+FROM table1
+FULL OUTER JOIN table2
+ON table1.column_name = table2.column_name
+WHERE condition;
+
+SQL union: The UNION operator is used to combine the result-set of two or more SELECT statements.
+Every SELECT statement within UNION must have the same number of columns
+
+SELECT City FROM Customers
+UNION
+SELECT City FROM Suppliers
+ORDER BY City;
+
+SELECT City, Country FROM Customers
+WHERE Country='Germany'
+UNION
+SELECT City, Country FROM Suppliers
+WHERE Country='Germany'
+ORDER BY City;
+
+Q Abstract methods
+
+Q Interfaces
+
+Q Testng.xml sequence
+
+Q Different exceptions in selenium:
+
+1. Timeoutexception - when command performing an operation does not complete in stimulated time
+2. NosuchelementException - when an element with given attributes is not found in web page
+3. ElementnotvisibleException - when an element is present in DOM(document object model), but not visible in web age
+4. StaleElementExcpetion - when an  element is either deleted or no longer attached in the DOM
+
+Q How will you login into the site if it is showing authentication popup for username and pw?
+
+Webdridver wait = new Wedbriver(10);
+Alert alert = wait.until(Expectedconditions.alertIspresent);
+alert.authenticateUsing(new UserandPassword(*username*, *password*);
+
+Q What is dataprovider in TestNG?
+
+A: Dataprovider enables us to write Datadriven tests. it supports data driven test that the same test method can run mutiple times on diff data sets.
+@dataprovider marks a method as supplying data for test method. the annoted method must return Object[] where each Object[] can be assign as parameter list to test method. 
+
+Q how we can skip test method in testng
+
+A: @Test(@enabled= false)
+
+Q Super keyword, super method 
+
+Q Interface vs abstract class
+
+Q SDLC
+
+Requirement analysis, planning, design, testing
+
+Q defect life cycle 
+
+Q agile 
+
+Q where you have used oops concept in your project 
+
+#1. ABSTRACTION
+Abstraction is the methodology of hiding the implementation of internal details and showing the functionality to the users.
+
+Let’s see an example of data abstraction in Selenium Automation Framework.
+
+In Page Object Model design pattern, we write locators (such as id, name, xpath etc.,) and the methods in a Page Class. We utilize these locators in tests but we can’t see the implementation of the methods. Literally we hide the implementations of the locators from the tests.
+
+#2. INTERFACE
+
+WebDriver itself is an Interface. So based on the above statement WebDriver driver = new FirefoxDriver(); we are initializing Firefox browser using Selenium WebDriver. It means we are creating a reference variable (driver) of the interface (WebDriver) and creating an Object. Here WebDriver is an Interface as mentioned earlier and FirefoxDriver is a class.
+
+An interface in Java looks similar to a class but both the interface and class are two different concepts. An interface can have methods and variables just like the class but the methods declared in interface are by default abstract. We can achieve 100% abstraction and multiple inheritance in Java with Interface.
+
+WebElement, Javascriptexecutor
+#3. INHERITANCE
+The mechanism in Java by which one class acquires the properties (instance variables) and functionalities of another class is known as Inheritance.
+
+We create a Base Class in the Automation Framework to initialize WebDriver interface, WebDriver waits, Property files, Excels, etc., in the Base Class.
+
+We extend the Base Class in other classes such as Tests and Utility Class.
+
+Here we extend one class (Base Class like WebDriver Interface) into other class (like Tests, Utility Class) is known as Inheritance.
+
+#4. POLYMORPHISM
+
+METHOD OVERLOADING
+We use Implicit wait in Selenium. Implicit wait is an example of overloading. In Implicit wait we use different time stamps such as SECONDS, MINUTES, HOURS etc.,
+
+Action class in TestNG is also an example of overloading.
+
+Assert class in TestNG is also an example of overloading.
+
+A class having multiple methods with same name but different parameters is called Method Overloading
+it is also called early binding, because compiler decides. 
+
+implicit wait is example.
+
+METHOD OVERRIDING
+We use a method which was already implemented in another class by changing its parameters. To understand this you need to understand Overriding in Java.
+
+Declaring a method in child class which is already present in the parent class is called Method Overriding. Examples are get and navigate methods of different drivers in Selenium .
+
+#5. ENCAPSULATION
+All the classes in a framework are an example of Encapsulation. In POM classes, we declare the data members using @FindBy and initialization of data members will be done using Constructor to utilize those in methods.
+
+Encapsulation is a mechanism of binding code and data (variables) together in a single unit.
+
+Class is the example.
+
+Constructor - 
+In Java, constructors are special methods used for initializing objects. 
+They are called when an instance of a class is created using the new keyword.
+same name as class, it is as methods.
+Default constructor
+Parameterize constructor 
+
+Q Webdriver driver = new Chromedriver();
+It is called as dynamic polymorphism, webdriver is an interface, chromedriver is class implementing it.
+driver is object reference name , new chromedriver it means creating object of chromedriver class this can be referred by parent.
+purpose of it is we can use the same driver variable to work with any browser 
+Q RTM 
+
+Q Anagram program
+
+class Main {
+  public static void main(String[] args) {
+
+    // create an object of Scanner class
+    Scanner input = new Scanner(System.in);
+
+    // take input from users
+    System.out.print("Enter first String: ");
+    String str1 = input.nextLine();
+    System.out.print("Enter second String: ");
+    String str2 = input.nextLine();
+
+    // check if length is same
+    if(str1.length() == str2.length()) {
+
+      // convert strings to char array
+      char[] charArray1 = str1.toCharArray();
+      char[] charArray2 = str2.toCharArray();
+
+      // sort the char array
+      Arrays.sort(charArray1);
+      Arrays.sort(charArray2);
+
+      // if sorted char arrays are same
+      // then the string is anagram
+      boolean result = Arrays.equals(charArray1, charArray2);
+
+      if(result) {
+        System.out.println(str1 + " and " + str2 + " are anagram.");
+      }
+      else {
+        System.out.println(str1 + " and " + str2 + " are not anagram.");
+      }
+    }
+    else {
+      System.out.println(str1 + " and " + str2 + " are not anagram.");
+    }
+
+    input.close();
+  }
+}
+
+// Compare sorted strings
+        for (int i = 0; i < n1; i++)
+            if (str1[i] != str2[i])
+                return false;
+ 
+Q Interface extends another interface
+
+Q Abstract 
+
+Q how you will handle exception in java 
+throw keyword 
+can catch block throw exception? 
+
+Q Exceptions in selenium
+Notfoundexcpetion: nosuchelementexception - found when element is not found, nosuchalertexception, nosuchframeexception, nosuchwindowexception
+Timeoutexception: when command is not processed in specified time
+nosuchsessionexception: when browser is closed and we try to access browser
+staleelementexception: the element no longer attached element is no longer attached to the actual DOM of the web page.
+StaleElementReferenceException occurs when interacting with a WebElement that is no longer associated with an HTML element in the DOM
+nosuchelementexception: if element is not found and xpath is incorrect
+illegalstateexception:if we do not set property of chromdriver and directly try to launch browser
+
+Q pallindrome
+
+class Main {
+  public static void main(String[] args) {
+
+    String str = "Radar", reverseStr = "";
+    
+    int strLength = str.length();
+
+    for (int i = (strLength - 1); i >=0; --i) {
+      reverseStr = reverseStr + str.charAt(i);
+    }
+
+    if (str.toLowerCase().equals(reverseStr.toLowerCase())) {
+      System.out.println(str + " is a Palindrome String.");
+    }
+    else {
+      System.out.println(str + " is not a Palindrome String.");
+    }
+  }
+}
+
+Q count duplicate characters in string
+
+public class DuplicateCharacters {    
+     public static void main(String[] args) {    
+        String string1 = "Great responsibility";    
+        int count;    
+            
+        //Converts given string into character array    
+        char string[] = string1.toCharArray();    
+            
+        System.out.println("Duplicate characters in a given string: ");    
+        //Counts each character present in the string    
+        for(int i = 0; i <string.length; i++) {    
+            count = 1;    
+            for(int j = i+1; j <string.length; j++) {    
+                if(string[i] == string[j] && string[i] != ' ') {    
+                    count++;    
+                    //Set string[j] to 0 to avoid printing visited character    
+                    string[j] = ' ';    
+                }    
+            }    
+            //A character is considered as duplicate if count is greater than 1    
+            if(count > 1 && string[i] != '0')    
+                System.out.println(c[i]+ " "+count); 
+        }    
+    }    
+}    
+
+
+Q find duplicate words in string
+
+public class DuplicateWord {    
+    public static void main(String[] args) {    
+        String string = "Big black bug bit a big black dog on his big black nose";    
+        int count;    
+            
+        //Converts the string into lowercase    
+        string = string.toLowerCase();    
+            
+        //Split the string into words using built-in function    
+        String words[] = string.split(" ");    
+            
+        System.out.println("Duplicate words in a given string : ");     
+        for(int i = 0; i < words.length; i++) {    
+            count = 1;    
+            for(int j = i+1; j < words.length; j++) {    
+                if(words[i].equals(words[j])) {    
+                    count++;    
+                    //Set words[j] to 0 to avoid printing visited word    
+                    words[j] = " ";    
+                }    
+            }    
+                
+            //Displays the duplicate word if count is greater than 1    
+            if(count > 1 && words[i] != "")    
+                System.out.println(words[i]+ " "+count);
+        }    
+    }    
+}     
+
+Q find risky accounts who has outstanding balnce 75000 or more, create class creditaccount with 3 parameters cardnumber, name, balance 
+create class accountprocessor which 1. get list of of creditcardaccount 2. return riskyaccounts 
+
+Q Webservice difference API
+Web service is a collection of open source protocols and standards used for exchanging data between systems or applications
+API is a software interface that allows two applications to interact with each other without any user involvement.
+Web service is used for REST, SOAP, and XML-RPC for communication
+API is used for any style of communication.
+Web service supports only HTTP protocol
+whereas API supports HTTP/HTTPS protocol.
+Web service supports XML
+API supports XML and JSON.
+All Web services are APIs, but all APIs are not web services.
+
+Q different methods
+Get: primarily used to retrieve data from a server. It is a read-only operation, meaning it should not alter any server-side state or data.
+Post: The POST method is used to create a new resource on the server. It sends data to the server and creates a new resource based on that data.
+Put: The PUT method is used to update an existing resource or create a resource if it does not exist. It sends data to the server to update a resource at a specified URI.
+Delete: to delete a specified resource from the server
+Patch:The PATCH method is used to apply partial updates to a resource. It sends data to the server to update specific fields of a resource without replacing the entire resource.
+
+Q different authrization token:
+
+1. No Auth
+This is used when no authorization is required for the API request.
+
+2. API Key
+API Key authorization involves sending a key-value pair to the server. The key is typically included in the request header or as a query parameter.
+
+3. Bearer Token
+Bearer Token authorization involves sending a token with the request headers. This token is used to verify the user's identity.
+
+4. Basic Auth
+Basic Auth uses a base64-encoded string of the username and password.
+
+5. Digest Auth
+Digest Auth is a more secure version of Basic Auth. It uses a series of MD5 hashes to protect the username and password.
+
+6. OAuth 1.0
+OAuth 1.0 is a protocol for token-based authentication and authorization. It requires multiple parameters such as consumer key, consumer secret, token, and token secret.
+
+7. OAuth 2.0
+OAuth 2.0 is a more modern and flexible protocol for token-based authorization. It supports multiple grant types such as Authorization Code, Implicit, Password Credentials, and Client Credentials.
+
+Grant type
+Callback URL
+Auth URL
+Access Token URL
+Client ID
+Client Secret
+
+
+8. Hawk Authentication
+Hawk is a cryptographic authentication scheme that provides partial HTTP request cryptographic verification.
+
+Q how you have send request in postman 
+
+Q why we do api testing? 
+
+Q Hashmap where you have used and syntax 
+
+Q difference between arraylist and linkedlist
+
+Q OOPS concept
+
+Q abstraction and example 
+
+Q Reverse a word in java 
+
+import java.util.*;
+class HelloWorld {
+    public static void main(String[] args) {
+      
+       StringBuilder sb=new StringBuilder("payal agarwal is great");
+   
+      System.out.print("reverse string "+sb.reverse());
+    }
+}
+
+Q Sum of natural numbers 
+
+     int a = 3;
+     int fact=0;
+  
+    while(a>0)
+    {
+        fact=fact+a;
+        a--; 
+      
+    }
+     System.out.println(+fact);  
+      
+Q Reverse each word’s characters in string
+
+ Scanner scanner = new Scanner(System.in);
+    System.out.print("Original string : ");
+ 
+    String originalStr = scanner.nextLine();
+    scanner.close();
+ 
+    String words[] = originalStr.split("\\s");
+    String reversedString = "";
+ 
+    for (int i = 0; i < words.length; i++) 
+    {
+      String word = words[i];//storing 1 word in word variable
+      String reverseWord = "";
+      for (int j = word.length() - 1; j >= 0; j--) { //reverse 1word logic
+        reverseWord = reverseWord + word.charAt(j);
+      }
+}
+      reversedString = reversedString + reverseWord + " ";  //reverse whole words 
+    
+ 
+    // Displaying the string after reverse
+    System.out.print("Reversed string : " + reversedString);
+  }
+
+Original string : I love java programming
+Reversed string : I evol avaj gnimmargorp 
+
+Q Reverse the words in string
+
+Scanner scanner = new Scanner(System.in);
+    System.out.print("Original string : ");
+ 
+    String originalStr = scanner.nextLine();
+    scanner.close();
+ 
+    String words[] = originalStr.split("\\s");
+    String reversedString = "";
+ 
+    //Reverse each word's position
+    for (int i = 0; i < words.length; i++) { 
+            if (i == words.length - 1) 
+              reversedString = words[i] + reversedString; 
+            else
+              reversedString = " " + words[i] + reversedString; 
+        } 
+ 
+    // Displaying the string after reverse
+    System.out.print("Reversed string : " + reversedString);
+  }
+
+Original string : I love java programming
+Reversed string : programming java love I
+
+Q how will you call constructor in java?
+
+Q what is abstraction?
+ process of hiding certain details and showing only essential information to the user. Abstraction can be achieved with either abstract classes or interfaces
+
+Q what is encapsultion?
+concept of binding fields (object state) and methods (behavior) together as a single unit.  using access modifiers private, protected
+Using access specifiers we can achieve encapsulation. 
+
+Q what is abstract method?
+A method declared using the abstract keyword within an abstract class and does not have a definition (implementation) 
+abstract return_type method_name( [ argument-list ] );  
+
+
+Q what is abstract class?
+A class is declared abstract using the abstract keyword. It can have zero or more abstract and non-abstract methods. We need to extend the abstract class and implement its methods. It cannot be instantiated.
+
+Variables: An abstract class can have member variables, while an interface cannot.
+Variable type can be private in interface under same package? - interface will not have variable
+abstract class class_name {  
+//abstract or non-abstract methods   
+}   
+
+example of abstract:
+
+abstract class Multiply {  
+     
+   // abstract methods   
+   // sub class must implement these methods  
+   public abstract int MultiplyTwo (int n1, int n2);  
+ public void show() {  
+    System.out.println ("Method of abstract class Multiply");  
+   }  
+}  
+
+class AbstractMethodEx1 extends Multiply {  
+  
+  // if the abstract methods are not implemented, compiler will give an error  
+   public int MultiplyTwo (int num1, int num2) {  
+    return num1 * num2;  
+   }  
+ public static void main (String args[]) {  
+    Multiply obj = new AbstractMethodEx1();  
+    System.out.println ("Multiplication of 2 numbers: " + obj.MultiplyTwo (10, 50));  
+    obj.show();  
+ }  
+}  
+
+Q Which xpath to be use for faster execution?
+> ID should be used, it points to particular element
+
+Q Manual testing vs automation testing
+
+Q Types of testing and define?
+
+Q Smoke testing define?
+
+Q syntax of linktext?
+driver.findElement(By.linkText("Sign Up")) // sign up is hyperlink
+
+Q What is API?
+Application programing interface which provides interface for coimmunication between 2 applications
+
+Q why we use API if UI is present?
+
+Q what is 400,401,403 status code?
+400- Bad request 
+401: unauthorized( authentication fails, credentials incorrect)
+403: forbidden (no permission to access api., even if credentials are correct)
+
+500: internal server error(something is wrong with server)
+503: no service available(server is down)
+
+Q State HTTP method?
+Get, post, put, patch, delete 
+
+Q Different API,why we use Rest API? 
+
+Representational state transfer, it allows interface to communicate between 2 applications. It allows to process requests and recieve response 
+
+Q Collections in Java?
+Collections store dat in form of objects, which help to store, monipulate and retrieve data
+
+Iterable
+
+Collections
+
+List 		Queue		Set
+
+Arraylist	Prioriry queue	Hashset
+Linkedlist	Dequeue		Linkedhashset
+vector
+stack
+
+Q What is Iterator in java?
+an Iterator is an interface provided by the java.util package. It is used to iterate over elements in a collection sequentially, allowing you to access each element in turn without having to know the internal structure of the collection.
+
+Q Difference between arraylist and linked list?
+Memory efficient. It only stores the object in the list.	Memory inefficient. It stores the object and the pointers to next and previous nodes.
+lower compared to LikedListTime Complexity : O(N)	Faster than ArrayListTime Complexity : O(1)
+ArrayList uses an array, which allows for fast random access but slow insertion and deletion. While LinkedList uses a doubly linked list, which allows for fast insertion and deletion but slow random access.
+
+Q Difference between array and arraylist?
+Arrays are fixed-size collections of elements
+ArrayLists are dynamic and resizable collections of elements.
+Arrays can only contain elements of a specific data type
+ArrayLists can hold elements of any data type.
+We use for loop or for each loop to iterate over an array.	
+We use an iterator to iterate over ArrayList.
+
+Q Commands of Linux
+
+Q What should not be automate?
+
+Q Elements of Test plan?
+
+Test plan is a document that defines scope, objective, approach, and emphasis of a software testing initiative
+
+Test plan id, testing features,test technique,pass or fail criteria, test deliverables, team responsibilities, release schedule, resources, assumptions, depeendencies types of testing etc.
+
+Q Elements of Test Strategy?
+
+Test strategy is a set of guidelines that explains test design and how testing needs to be done.
+Key elements include – scope, scope approach, formats, processes, reports, client communication, test enviroment, testing tools, team reporting structure, risk analysis etc.
+
+Q Jenkins
+an open source automation server which enables developers around the world to reliably build, test, and deploy their software
+
+Q how will you verify actual result get in response of api
+eg. search for hotels, and search city=pune got 100 results how will you 
+
+Q Git how you have use?
+for each task we are creating subbranch from main and push the code in sub-branch, then we raise pr and lead used to merge to master 
+
+Q Core java basics?
+
+Q Rest API basics?
+
+Q TestNG basics?
+
+Q what query is use to add column in database table
+
+Q what is query parameter 
+
+Q Insert query 
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+
+INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
+VALUES ('Cardinal', 'Tom B. Erichsen', 'Skagen 21', 'Stavanger', '4006', 'Norway');
+
+Q Update query 
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+
+UPDATE Customers
+SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
+WHERE CustomerID = 1;
+
+Q Group by clause
+
+The GROUP BY statement groups rows that have the same values into summary rows, like "find the number of customers in each country".
+The GROUP BY statement is often used with aggregate functions (COUNT(), MAX(), MIN(), SUM(), AVG()) to group the result-set by one or more columns.
+
+SELECT column_name(s)
+FROM table_name
+WHERE condition
+GROUP BY column_name(s)
+ORDER BY column_name(s);
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country;
+
+Q Having clause
+The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID) > 5;
+
+Q Order by clause 
+
+The ORDER BY keyword is used to sort the result-set in ascending or descending order.
+
+SELECT column1, column2, ...
+FROM table_name
+ORDER BY column1, column2, ... ASC|DESC;
+
+SELECT * FROM Products
+ORDER BY Price DESC;
+
+SQL constraints are used to specify rules for the data in a table.
+Constraints are used to limit the type of data that can go into a table. 
+
+NOT NULL - Ensures that a column cannot have a NULL value
+UNIQUE - Ensures that all values in a column are different
+PRIMARY KEY - A combination of a NOT NULL and UNIQUE. Uniquely identifies each row in a table
+FOREIGN KEY - Prevents actions that would destroy links between tables
+CHECK - Ensures that the values in a column satisfies a specific condition
+DEFAULT - Sets a default value for a column if no value is specified
+CREATE INDEX - Used to create and retrieve data from the database very quickly
+
+CREATE TABLE table_name (
+    column1 datatype constraint,
+    column2 datatype constraint,
+    ....
+);
+
+The UNIQUE constraint ensures that all values in a column are different.
+
+you can have many UNIQUE constraints per table, but only one PRIMARY KEY constraint per table.
+
+
+Q Difference between Stringbuilder and Stringbuffer?
+
+StringBuffer is synchronized i.e. thread safe. It means two threads can't call the methods of StringBuffer simultaneously.	
+StringBuilder is non-synchronized i.e. not thread safe. It means two threads can call the methods of StringBuilder simultaneously.
+StringBuffer is less efficient than StringBuilder.	StringBuilder is more efficient than StringBuffer.
+StringBuilder is quicker than StringBuffer 
+StringBuffer is lot slower than StringBuilder.
+
+StringBuffer str = new StringBuffer();
+In order to create a string buffer, an object needs to be created,
+ 
+Strings are immutable- cannot grow (fixed size) Whenever a change to a String is made, an entirely new String is created, StringBuilder,StringBuffer are mutable 
+
+ // object to the String object 
+     String str = sbr.toString(); 
+
+Q  How to take screenshot when get exception?
+
+Create a class. Implement TestNG ‘ITestListener‘.
+Call the method ‘onTestFailure’.
+Add the code to take a screenshot with this method.
+Get the Test method name and take a screenshot with the test name. Then place it in the desired destination folder.
+
+public static void takeSnapShot(WebDriver webdriver,String fileWithPath) throws Exception{
+//Convert web driver object to TakeScreenshot
+TakesScreenshot scrShot =((TakesScreenshot)webdriver);
+//Call getScreenshotAs method to create image file
+File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+//Move image file to new destination
+File DestFile=new File(fileWithPath);
+//Copy file at destination
+FileUtils.copyFile(SrcFile, DestFile);
+}
+
+TakeScreenshot is interface
+TakesScreenshot scrShot =((TakesScreenshot)webdriver); - typecasting driver object
+
+Write testng xml configuration to run parallel tests.
+<suite name="Parallel Test Suite" parallel="methods" thread-count="2">
+
+or 
+
+<suite name="Parallel Test Suite" parallel="classes" thread-count="2">
+<test name="Parallel Test" >
+<classes>
+<class name="com.qa.testcases.ChromeTest"/>
+<class name="com.qa.testcases.FirefoxTest"/>
+</classes>
+
+<suite name = "Parallel Testing Suite">
+   <test name = "Parallel Tests" parallel = "classes">
+      <classes>
+         <class name = "ParallelTest" />
+      </classes>
+   </test>
+</suite>
+
+Q Dataprovider?
+
+The DataProviders in TestNG are another way to pass the parameters in the test function, the other one being TestNG parameters. 
+
+@DataProvider (name = "name_of_dataprovider")
+public Object[][] dpMethod() {
+    return new Object [][] { values}
+}
+
+eg. public class DP
+{
+    @DataProvider (name = "data-provider")
+     public Object[][] dpMethod(){
+	 return new Object[][] {{"First-Value"}, {"Second-Value"}};
+     }
+	
+    @Test (dataProvider = "data-provider")
+    public void myTest (String val) {
+        System.out.println("Passed Parameter Is : " + val);
+    }
+}
+
+Q Parameters?
+@Parameters({“name”, “searchKey”})
+@Test
+
+
+suite name="TestNG Parameters Suite">
+   <test name="Params">
+      <parameter name="name" value="2" />
+      <parameter name="searchKey" value="3" />
+      <classes>
+         <class name="Params" />
+      </classes>
+   </test>
+Q About current version of Java and what are new features added
+
+15 features of JDK 21
+1. Structured concurrency,Scoped values,An API for key encapsulation mechanisms, Deprecation of the Windows 32-bit x86 port for removal
+
+Q Difference between Absolute & Relative XPATHs.?
+
+An absolute xpath starts with the / symbol(it starts with root node). A relative xpath starts with the // symbol.
+An absolute xpath is lengthy and difficult to maintain (html/body/tagname/…). While a relative xpath is short (//*[@attribute='value']). 
+
+Q How to handle dynamic content web page elements.?
+
+1. Explicit Waits
+2. Fluent Waits
+3. CSS Selectors And XPath
+4. Handling Elements Inside Frames
+5. Using Relative Element Positions
+6. Multiple Attributes
+and or or in your XPath or CSS selector
+7. refresh the page
+driver.navigate().refresh();
+
+Q How to find dynamic xpath?
+using xpath axes 
+Axis Name	Description
+ancestor	Shows all the ancestors (parent, grandparent, etc.,) related to the context (current) node.
+ancestor-or-self	Shows the context (current) node and all the ancestors.
+attribute	Shows all the atributes of the context (current) node.
+child	Shows all the children of the context (current) node.
+descendant	Specifies all descendants (children, grandchildren, etc.) of the context (current) node.
+descendant-or-self	Specifies all descendants (children, grandchildren, etc.) of the context (current) node and the current node itself.
+following	Specifies all the nodes that appear after the context (current) node.
+following-sibling	Specifies all siblings after the context (current) node.
+namespace	Specifies all the namespace nodes of the context (current) node.
+parent	Specifies the parent of the context (current) node.
+preceding	Specifies all the nodes that appear before the context (current) node in the HTML DOM structure. This does not specify ancestor, attribute, and namespace.
+preceding-sibling	Specifies all the sibling nodes that appear before the context (current) node in the HTML DOM structure. This does not specify descendent, attribute and namespace.
+self	Specifies the context (current) node.
+
+Q diff between getattribute(), gettext() method?
+getAttribute method gets the value of a given HTML attribute. On the other hand, getText() returns the inner text of a given element. 
+
+Q Extent Reports is an open-source reporting library useful for test automation. It can be easily integrated with major testing frameworks like JUnit, NUnit, TestNG, etc. These reports are HTML documents that depict results as pie charts.
+
+To implement Extent Reports in your automation framework, you can follow these general steps:
+1. Add Dependencies:
+2. Initialize Extent Reports:In your test automation framework, initialize the Extent Reports object. This typically involves creating an ExtentReports instance, specifying the output file path for the report, and configuring any additional settings.
+3. Create Test Reports: As you execute your test cases, use Extent Reports to create and log test reports. This involves creating ExtentTest instances for each test case and using methods provided by Extent Reports to log test steps, assertions, screenshots, and other relevant information.
+4. Generate Reports:After all test executions are complete, generate the final Extent Reports HTML report. This report will contain detailed information about the test runs, including summaries, test case details, logs, screenshots, and more.
+
+Q Constructor can be final/static?
+No 
+constructors are not subject to hiding or overriding. When there is no chance of constructor overriding, there is no chance of modification also. When there is no chance of modification, then no sense of restricting modification there. 
+
+Q Cookies are client-side files on a local computer that hold user information. 
+Sessions are server-side files that contain user data.
+
+Q Find 3rd highest salary
+select Max(salary)
+from employees
+where Salary not in
+
+ (select Max(salary)
+from employees
+where Salary not in 
+
+(select Max(salary)
+from employees));
+
+Q difference between get() and navigateTo() methods 
+get(): it will load url
+navigate().to()- it will load url and wait for page to load
+
+Q what is authentication & authorization?
+
+authentication is the process of verifying who a user is, while authorization is the process of verifying what they have access to.
+authentication:  verifying the identity of a consumer or system to ensure they’re who they claim to be
+The authentication credentials can be changed in part as and when required by the user.
+Authentication Techniques-
+Password-Based Authentication
+Passwordless Authentication
+2FA/MFA (Two-Factor Authentication / Multi-Factor Authentication)
+
+
+Authorization is the method of granting permissions to a user , specifying what assets they can access and what actions they’re allowed to carry out.
+It comes after authentication and guarantees that the authenticated entity has the proper rights to use certain data, applications, or services. 
+The authorization permissions cannot be changed by user as these are granted by the owner of the system and only he/she has the access to change it.
+Authorization Techniques-
+Role-Based Access Controls (RBAC)
+JSON web token (JWT) Authorization
+SAML Authorization
+OpenID Authorization
+OAuth 2.0 Authorization
+
+git init	Initialize a local Git repository
+git clone ssh://git@github.com/[username]/[repository-name].git	Create a local copy of a remote repository
+
+git status	Check status
+git add [file-name.txt]	Add a file to the staging area
+git add -A	Add all new and changed files to the staging area
+git commit -m "[commit message]"	Commit changes
+git rm -r [file-name.txt]	Remove a file (or folder)
+git branch	List branches (the asterisk denotes the current branch)
+git branch -a	List all branches (local and remote)
+git branch [branch name]	Create a new branch
+git branch -d [branch name]	Delete a branch
+git push origin --delete [branch name]	Delete a remote branch
+git checkout -b [branch name]	Create a new branch and switch to it
+git checkout -b [branch name] origin/[branch name]	Clone a remote branch and switch to it
+git branch -m [old branch name] [new branch name]	Rename a local branch
+git checkout [branch name]	Switch to a branch
+git checkout -	Switch to the branch last checked out
+git checkout -- [file-name.txt]	Discard changes to a file
+git merge [branch name]	Merge a branch into the active branch
+git merge [source branch] [target branch]	Merge a branch into a target branch
+git push origin [branch name]	Push a branch to your remote repository
+git push -u origin [branch name]	Push changes to remote repository (and remember the branch)
+git push	Push changes to remote repository (remembered branch)
+git push origin --delete [branch name]	Delete a remote branch
+git pull	Update local repository to the newest commit
+git pull origin [branch name]	Pull changes from remote repository
+git fetch - only retrieves the latest changes from the remote repository and stores them in your local repository.
+git rebase is a Git command used to rewrite commit history by moving or combining a sequence of commits onto a new base commit. 
+
+Q git pull vs git fetch
+git pull copies changes from a remote repository directly into your working directory, while git fetch does not. git pull is a combination of two commands: git fetch followed by git merge.
+The git fetch command only copies changes into your local Git repo. It doesn't integrate those changes into your current working branch.
+
+Q What are the Access Specifiers & it's scope?
+Access modifiers are keywords that can be used to control the visibility of fields, methods, and constructors in a class. The four access modifiers in Java are public, protected, default, and private.
+
+Private: The access level of a private modifier is only within the class. It cannot be accessed from outside the class.
+Default: The access level of a default modifier is only within the package. It cannot be accessed from outside the package. If you do not specify any access level, it will be the default.
+Protected: The access level of a protected modifier is within the package and outside the package through child class. If you do not make the child class, it cannot be accessed from outside the package.
+Public: The access level of a public modifier is everywhere. It can be accessed from within the class, outside the class, within the package and outside the package.
+
+Q how we can handle vertical scroll, horizontal scope in selenium?
+
+scroll down
+Actions act = new Actions(dr);
+act.sendKeys(Keys.PAGE_DOWN).build().perform(); 
+
+scroll up
+act.sendKeys(Keys.PAGE_UP).build().perform();  
+
+or Javascript executor
+
+//scroll down
+JavascriptExecutor js = (JavascriptExecutor)dr;
+js.executeScript("window.scrollBy(0,70)"); 
+
+//scroll up
+js.executeScript("window.scrollBy(0,-50)");    
+
+Q how we will handle multiple windows 
+
+Q how we will handle frames
+
+//Switch to index
+driver.switchTo().frame(0);
+
+// Switch to the frame by name
+driver.switchTo().frame("frame-name");
+
+// Switch to the frame by ID
+driver.switchTo().frame("frame-id");
+
+// Find the frame element
+WebElement frameElement = driver.findElement(By.id("frame-id"));
+
+// Switch to the frame using the web element
+driver.switchTo().frame(frameElement);
+
+Q how will we find dynamic xpaths?
+
+#01 Using Single Slash.
+#02 Using Double Slash.
+#03 Utilizing a Single Attribute.
+#04 Using Multiple Attributes.
+#05 Using AND.
+
+Xpath=//input[@type='submit' and @name='btnLogin']
+
+#06 Using OR.
+
+Xpath=//*[@type='submit' OR @name='btnReset']
+#07 Using contains()
+
+//*[contains]
+
+//*[contains(text(),'test')]
+
+//div[contains(text(),'test')]
+#08 use of text ()
+//div[text()="test"]
+
+use start with
+
+/label[starts-with(@id,'message')]
+
+Q diff between xpath and css selectors?
+Xpath allows bidirectional flow which means the traversal can be both ways from parent to child and child to parent as well. Css allows only one directional flow which means the traversal is from parent to child only.
+
+CSS selectors are preferred over XPath in many cases due to their simpler syntax and capabilities, faster performance, and better support across different browsers. CSS selectors only work with elements in the DOM and tend to break less often compared to XPath, especially with changes in the DOM structure.
+
+Q Following,sibling,parent xpath example
+
+Child Selects all children elements of the current node
+//*[@id='java_technologies']//child::li
+
+Xpath=//*[@type='text']//following::input
+
+Parent: Selects the parent of the current node 
+//*[@id='rt-feature']//parent::div
+
+Siblings are at the same level of the current node
+//h2[contains(text(),'text')]/parent::div//div[//a[text()='SELENIUM']]/following-sibling::div
+
+preceding Select all nodes that come before the current node
+Xpath= //*[@type='submit']//preceding::input
+
+Descendent identifies all the element descendants to current element ( ‘Main body surround’ frame element) which means down under the node (child node , grandchild node, etc.).
+//*[@id='rt-feature']//descendant::a
+
+//*[@id='rt-feature']//parent::div
+
+ancestor axis selects all ancestors element (grandparent, parent, etc.) of the current node
+//*[text()='Enterprise Testing']//ancestor::div
+
+Q Can we move frwd and backward in css selectors
+we can move forward but no backward 
+
+Q Hashmap vs Hashtable
+
+Hashtable class is synchronized, which can result in slower performance compared to other implementations of the Map interface.
+Hashtable<String, Integer> hashtable = new Hashtable<>(); 
+        // Adding elements to the hashtable
+        hashtable.put("A", 1);
+It is similar to HashMap, but is synchronized.
+
+HashMap is a popular data structure in Java that uses the Map interface and a hash table to provide efficient access and manipulation of data based unique keys. 
+The hash map is used whenever data is stored as key-value pairs, where values can be added, retrieved, and deleted using keys.
+HashSet in Java is a class from the Collections Framework. It allows you to store multiple values in a collection using a hash table. 
+HashSet is a class that extends AbstractSet and implements the Set interface in Java. It is a very useful tool that allows you to store unique items and access them in constant time (on average)
+
+HashTable does not allow null keys or values. If you try to insert a null key or value into a HashTable, it will throw a NullPointerException.
+
+HashMap allows one null key and any number of null values. It is also possible to insert a key-value pair with a null value.
+
+In HashMap we store a key-value pair. It maintains the mapping of key and value.	In HashSet, we store objects.
+It does not allow duplicate keys, but duplicate values are allowed.	It does not allow duplicate values.
+It can contain a single null key and multiple null values.	It can contain a single null value.
+it is non-synchronised   it is synchronised
+HashMap uses the put() method to add the elements in the HashMap.	HashSet uses the add() method to add elements in the HashSet.
+
+HashMap<String, Integer> hm= new HashMap<String, Integer>();  
+//adding key-value pair  
+hm.put("John", 23);  
+
+HashSet<String> hs= new HashSet<String>();  
+//adding values to HashSet  
+hs.add("Java");  
+
+LinkedHashSet Java class extends HashSet 
+The LinkedHashSet is an ordered version of HashSet that maintains a doubly-linked List across all elements.
+LinkedHashSet<String> linkedset = new LinkedHashSet<String>(); 
+
+Q fibonacci series
+class FibonacciExample1{
+public static void main(String args[])
+{  
+ int n1=0,n2=1,n3,i,count=10;  
+ System.out.print(n1+" "+n2);//printing 0 and 1  
+  
+ for(i=2;i<count;++i)//loop starts from 2 because 0 and 1 are already printed  
+ {  
+  n3=n1+n2;  
+  System.out.print(" "+n3);  
+  n1=n2;  
+  n2=n3;  
+ }  
+
+}}
+
+Q Inner class in java
+
+inner class refers to the class that is declared inside class or interface which were mainly introduced, to sum up
+
+Nested Inner Class
+Method Local Inner Classes
+Static Nested Classes
+Anonymous Inner Classes
+
+Q What are the wrapper classes in java and where it has been implemented in the automation framework.
+we can wrap a primitive value into a wrapper class object. 
+Wrapper classes are used to treat primitive data types as objects.
+
+The classes in java.util package handles only objects and hence wrapper classes help in this case also.
+Data structures in the Collection framework, such as ArrayList and Vector, store only objects (reference types) and not primitive types.
+An object is needed to support synchronization in multithreading.
+
+Advantages of Wrapper Classes
+Collections allowed only object data.
+On object data we can call multiple methods compareTo(), equals(), toString()
+Cloning process only objects
+Object data allowed null values.
+Serialization can allow only object data.
+
+char ch = 'a';
+ // Autoboxing- primitive to Character object
+ // conversion
+ Character a = ch;
+
+Q. Design Patterns in java
+
+Singleton Pattern says that just "define a class that has only one instance and provides a global point of access to it".
+a class must ensure that only single instance should be created and single object can be used by all other classes.
+
+Advantage of Singleton design pattern
+Saves memory because object is not created at each request. Only single instance is reused again and again.
+
+Advantage of design pattern:
+They are reusable in multiple projects.
+They provide the solutions that help to define the system architecture.
+They capture the software engineering experiences.
+They provide transparency to the design of an application.
+
+We must use the design patterns during the analysis and requirement phase of SDLC(Software Development Life Cycle).
+
+Categorization of design patterns:
+1. Core Java (or JSE) Design Patterns.
+
+Creational Design Pattern:
+Factory Pattern
+Abstract Factory Pattern
+Singleton Pattern
+Prototype Pattern
+Builder Pattern.
+
+Structural Design Pattern:
+Adapter Pattern
+Bridge Pattern
+Composite Pattern
+Decorator Pattern
+
+Behavioral Design Pattern:
+Chain Of Responsibility Pattern
+Command Pattern
+Interpreter Pattern
+Iterator Pattern
+
+Q. Difference between perform() and build.perform() 
+If you want to perform only one action, you can use either perform() or build(). perform() with the same effect. But if you want to perform several actions, you have to use build().
+
+Q Git stash: temporarily save changes that are not ready to be committed yet. Stashing is useful when you need to switch branches or work on a different task but don't want to commit your changes just yet.
+
+Q What is pom and page factory?
+Page Factory is a factory class in Selenium for implementing the Page Object Model. @FindBy is the method of page factory. It's an optimized version of the POM for Selenium WebDriver, which follows the separation techniques for handling the object repositories and the test cases. 
+It's a class that extends from the web driver classes
+
+@By is the method of pom
+In Page Factory, the Page Object Model (POM) is combined with the @FindBy annotation to create Page Objects
+Page Object Model, also known as POM, is a design pattern in Selenium that creates an object repository for storing all web elements.
+
+Q. Difference between Data driven and Keyword driven frameworks.
+1. Data-driven testing conduct tests by using several stored data, values, and variables.	Keyword-driven testing conduct tests by using specific keywords.
+2.DDT can store their data in many formats like CSV files, excel sheets, databases, tables, script arrays, etc.	KDT can store their data only in Excel sheets.
+3.It is less time-consuming.	It is more time-consuming.
+
+Q. Will compiler provide default constructor if we define another constructor explicitly?
+No 
+
+Q OAuth 2.0?
+ is an authorization protocol and NOT an authentication protocol. As such, it is designed primarily as a means of granting access to a set of resources, for example, remote APIs or user data.
+
+Q what does MVN clean does?
+The Maven Clean Plugin, as the name implies, attempts to clean the files and directories generated by Maven during its build. 
+cleans the Maven project by deleting the target directory
+
+Q Get the nth Salary in the employee table
+
+select min(salary)
+from (
+select distinct salary
+from Employee_Salaries
+order by salary desc
+limit 5
+)
+
+DISTINCT statement is used to return only distinct (different) values
+
+Q Difference between Comparable and Comparator
+Comparable and Comparator both are interfaces and can be used to sort collection elements.
+1. Comparable provides compareTo() method to sort elements.	Comparator provides compare() method to sort elements.
+2. Comparable is present in java.lang package.	A Comparator is present in the java.util package.
+3. We can sort the list elements of Comparable type by Collections.sort(List) method.	We can sort the list elements of Comparator type by Collections.sort(List, Comparator) method.
+
+Q  Difference bw sort method of Arrays, Collection and if used with comparator.
+Arrays. sort(), which is limited to arrays, Collections. sort() can sort more dynamic data structures like ArrayList, LinkedList, and other classes that implement the List interface
+
+3. WAP to expand string - input string: “2A3BCD3E” output: “AABBBCDEEE”
+
+class HelloWorld {
+    public static void main(String[] args) {
+        String str="2A3BCD3E";
+        
+        for(int i=0;i<str.length();i++)
+        {
+            if(Character.isDigit(str.charAt(i)))
+            {
+                int l= Integer.parseInt(String.valueOf(str.charAt(i))); //String.valueOf converts diff types of value in string, Integer.parseInt will convert value of string to integer
+                for(int k=0;k<l;k++)
+                {
+                    System.out.print(str.charAt(i+1));// print character A 
+                }
+                i++;
+            }
+            else
+            {
+                System.out.print(str.charAt(i));
+            }
+        }
+    }
+}
+
+Q Sort the array 
+
+class HelloWorld {
+    public static void main(String[] args) {
+        int arr[]={2,3,1,4,5};
+       
+        Arrays.sort(arr);
+        System.out.println("Sorted array"+Arrays.toString(arr));
+    }
+    
+
+Q Non-repeatative array elements
+
+ int arr[]={1,2,2,3,1};
+     HashMap<Integer,Integer> hmap=new HashMap<>();
+     for(int num:arr)
+     {
+        hmap.put(num, hmap.getOrDefault(num, 0) + 1);
+     }
+     for(Map.Entry<Integer,Integer> freqmap: hmap.entrySet())
+    
+     {
+         if(freqmap.getValue()==1)
+         System.out.println(freqmap.getKey()+" value "+freqmap.getValue());
+}
+or
+
+   int[] arr = {1, 2, 2, 3, 1};
+      int n = arr.length;
+      for (int i = 0; i < n; i++) 
+      {
+      
+            int j;
+            // Check if ith element is present in array
+            for (j = 0; j < n; j++)
+            {
+         
+                if(i != j && arr[i] == arr[j])
+                  break;
+            }
+            if (j == n)
+            {
+                // Print the ith element
+                System.out.println("First non-repeating number is: " + arr[i]);
+                break;
+            }
+      }    
+    }
+
+Q Hashmap example
+import java.util.*; 
+ HashMap<String, Integer> map=new HashMap<String,Integer>();
+       map.put("geeks",4);
+       map.put("payal",5);
+       map.put("geeks1",3);
+       for(Map.Entry<String,Integer> hm:map.entrySet())
+       {
+           
+           System.out.print(hm.getKey()+" " +hm.getValue());
+       }
+    
+    }
+
+Q Find unique character count
+
+import java.util.*;
+public class MissingCharacter {
+    public static void main(String[] args) {
+        String str= "GeeksforGeeks";
+     
+       int n=str.length();
+       
+       HashMap<Character,Integer> mp= new HashMap<>();
+       
+       for(int i=0;i<n;i++)
+       {
+           if(mp.containsKey(str.charAt(i))) //Initially mp is blank it is only initializa it will go to else block 1st
+           {
+               mp.put(str.charAt(i),mp.get(str.charAt(i))+1);
+                      }
+           else
+           {
+               mp.put(str.charAt(i),1);
+           }
+       }
+        for(Map.Entry<Character,Integer> freqmap: mp.entrySet())
+     {
+         if(freqmap.getValue()==1)
+         System.out.println(freqmap.getKey()+" value "+freqmap.getValue());
+     }
+    }
+}
+
+
+Q Reverse each word in string using stringbuilder
+ public static void main(String[] args) {
+      String str="payal agarwal is great";
+       String words[]=str.split(" ");
+        String reverse="";
+        for(String w:words)
+        {
+        StringBuilder sb=new StringBuilder(w);
+        reverse=sb.reverse()+" " + reverse;
+        }
+      System.out.print("reverse string "+reverse);
+    }
+
+o/p:taerg si lawraga layap
+
+Q Reverse each word without changing position of word
+
+  String str = "payal agarwal is great";
+        String[] word=str.split(" ");
+        String reverseword=" ";
+       for(String w:word)
+       {
+            StringBuilder sb= new StringBuilder(w);
+             reverseword=reverseword + sb.reverse()+ " ";
+       
+       }
+         System.out.println(reverseword);
+
+o/p: layap lawraga si taerg 
+
+Q . Print string word by word? 
+String str="abcd defg hijk lmno";
+O/p:	abcd
+        defg
+        hijk
+        lmno
+
+String str="abcd defg hijk lmno";
+       String words[]=str.split(" ");
+        String reverse="";
+        for(String w:words)
+        {
+         System.out.println(w);
+        }
+     
+Q 1 "abcd" should print "efgh"  and "xyz" should print "abc" (ascii)
+
+ public static void main(String[] args) {
+      String str="abcd xyz";
+       String words[]=str.split(" ");
+      
+        for(String w:words)
+        {
+         if(w.equals("abcd"))
+         {
+             String replace = w.replaceAll("abcd","efgh");
+             System.out.print(replace +" ");
+         }
+         else
+         {
+             String replace2 = w.replaceAll("xyz","def");
+             System.out.print(replace2);
+         }
+        }
+     
+    }
+
+Q If there is a button and we click on it.It will open 3 windows(Might change in future).Write a reusable program to get the names of the windows which are opened.
+driver.switchTo(window handle).getTitle();
+
+Q How to overcome on StalelementReferencexception
+reasons:
+The HTML element in the DOM was deleted and recreated
+The HTML element is no longer present on the web page
+
+how we can overcome exception:
+Refresh the web page before accessing the web element.
+Use the try-catch block to handle the exception and attempt to locate the element again.
+Use explicit wait to ensure the element is present or refreshed before interacting with it.
+
+Q How you can automate the graph,chart?
+These charts packages usually generate charts in an SVG (Scalable Vector Graphics) format.
+
+Verify the chart is present by checking the svg tag
+Save the chart to a file
+Verify the image file
+Visually inspect the image file on the Continuous Testing (CT) server
+
+Q. Input :0,0,1,0,1,1,0,1  
+output :replace 1 by 'A' for odd index and by 'a' for even index and 0 by 'Z' for odd index and by 'z' for even index.
+
+public static void main(String[] args) {
+        int[] numbers = {0, 0, 1, 0, 1, 1, 0, 1}; // Example array
+        
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] == 0) {
+                if (i % 2 == 0)
+                    numbers[i] = 'Z';
+                else
+                    numbers[i] = 'z';
+            } else {
+                if (i % 2 == 0)
+                    numbers[i] = 'A';
+                else
+                    numbers[i] = 'a';
+            }
+        }
+        
+        System.out.print("Output: ");
+        for (int num : numbers) {
+            System.out.print((char)num);
+        }
+    }
+}
+
+Q Program to seperate 0's and 1's in an array
+
+import java.util.*;
+class HelloWorld {
+    public static void main(String[] args) {
+      int arr[]={1,0,1,1,0,0}; 
+     ArrayList<Integer> arr1=new ArrayList<>();
+       ArrayList<Integer> arr2=new ArrayList<>();
+        for(int i=0;i<arr.length;i++)
+        {
+            if(arr[i]==1)
+                arr1.add(arr[i]);
+           else
+                 arr2.add(arr[i]);
+                   }
+       System.out.print(arr1);
+       System.out.print(arr2);
+    }
+}
+
+Q count of characters?
+ public static void main(String[] args) {
+     String str= "tiredoflife";
+     int count;
+     char[] arr= str.toCharArray();
+     for(int i=0;i<arr.length;i++)
+     { count=1;
+         for(int j=i+1;j<arr.length;j++)
+         {
+             if(arr[i]==arr[j])
+             {
+               count++;
+              }             }
+         }
+          System.out.println(arr[i]+" count is "+count);
+     }
+
+Q Count of occurences of each digit in array
+
+public static void main(String[] args) {
+     int[] arr={2,3,4,2,6,8,4,9};
+     int count;
+    for(int i=0;i<arr.length;i++)
+    { count=1;
+        for(int j=i+1;j<arr.length;j++)
+        {
+            if(arr[i]==arr[j])
+            {
+                count++;
+            }
+        }
+     System.out.println(arr[i]+" count is "+count);  
+    }
+
+o/p
+2 count is 2
+3 count is 1
+4 count is 2
+2 count is 1
+6 count is 1
+8 count is 1
+4 count is 1
+9 count is 1
+
+Q 2nd max element in array
+ public static void main(String[] args) {
+    int arr[]={1,0,1,1,3,4,4,2,3};
+       int length=arr.length;
+       Arrays.sort(arr);
+       if(arr[length-2]==arr[length-1])
+       {
+       System.out.println(arr[length-3]);
+       }
+       else
+       {
+           System.out.println(arr[length-2]);
+       }
+  
+Q Input : 1,0,1,2,1,0,2,1,2,0
+O/P: [2, 2, 2, 0, 0, 0, 1, 1, 1,1]
+
+  int[] input = {1, 0, 1, 2, 1, 0, 2, 1, 2, 0};
+   
+ public static void main(String[] args) {
+        int Input[]={1,0,1,2,1,0,2,1,2,0};
+        //2,2,2,2,2,0,0,0,1,1,1,1
+        int count0=0,count1=0,count2=0;
+       for(int arr: Input)
+       {
+           if(arr==0)
+           count0++;
+           else if(arr==1)
+           count1++;
+           else if(arr==2)
+           count2++;
+       }
+       int index=0;
+       for(int k=0;k<count2;k++) { Input[index++]=2; }
+       for(int i=0;i<count0;i++) { Input[index++]=0; }
+       for(int j=0;j<count1;j++) { Input[index++]=1; }
+       
+        System.out.print(Arrays.toString(Input));
+
+Q Input: 4,5,7
+O/p 7,4,5
+
+   int arr[]={4,5,7};
+       //o/p: [7,4,5]
+       int max=arr[0];
+    for(int i=0;i<arr.length;i++)
+    {
+        if(arr[i]>max)
+        {
+            max=arr[i];
+        }
+    }
+     // Shift elements to the right by one position
+        for (int j = arr.length - 1; j > 0; j--) {
+            arr[j] = arr[j - 1];
+        }
+        arr[0]=max;
+      System.out.print(Arrays.toString(arr)); // returns string representation
+
+Q Difference between StringBuffer & StringBuilder?
+StringBuffer is thread-safe and synchronized whereas StringBuilder is not thread-safe and non-synchronized
+StringBuffer is slower , StringBuilder is faster 
+
+Q Collection: A collection is an object that represents a group of objects
+A collections framework is a unified architecture for representing and manipulating collections
+enables the user to perform various data manipulation operations like storing data, searching, sorting, insertion, deletion, and updating of data on the group of elements
+
+hierarchy: 
+Iterable 
+
+Q How to get any url when click on any new hyperlink
+WebElement link = driver.findElement(By.tagName("a"))
+String url = link.getAttribute("href")
+
+Q Output for the below program?
+public static void main(String args[])  
+{  
+    try  
+    {  
+        int a = 1/0;  
+        System.out.println("a = "+a);  
+    }  
+    catch(Exception e){System.out.println(e);}  
+    catch(ArithmeticException ex){System.out.println(ex);}    
+}
+
+o/p ArithmeticException has already been caught
+      catch(ArithmeticException ex){System.out.println(ex);}  
+
+Q what is immutability in java?
+Immutability in Java ensures that objects and data are not changed or modified after they have been created.
+String is immutable - hence changing content will lead to the creation of a new String
+
+Q. Difference bw sort method of Arrays, Collection and if used with comparator.
+The Arrays.sort() method is a utility function for sorting arrays in Java. It allows to sort arrays of primitive data types and objects.
+Collections.sort() is designed for sorting instances of the List interface in Java’s Collection Framework.
+Collections.sort() can sort more dynamic data structures like ArrayList, LinkedList, and other classes that implement the List interface. 
+
+Q Difference between Selenium 3 and Selenium 4
+Selenium 3: It primarily relied on the Selenium WebDriver API, which had some limitations and inconsistencies across different browsers. 
+Selenium 3 Architecture is made up of four major components:
+1. Selenium Client library / Language Bindings
+2. JSON wire protocol over HTTP
+3. Browser Drivers
+4. Browsers
+
+Selenium 4: It adopts the WebDriver W3C Standard, which provides more consistency in interactions with web elements across browsers. 
+W3C protocol was introduced because all the web browsers followed the W3C standards and also all the browser drivers followed the W3C standards. 
+This helped in better communication with the browsers, stability, and common code
+Relative Locators (above, below, toRightof,toLeftof, near) have been introduced in Selenium 4 which help to identify elements ‘relative’ to a particular element in DOM
+Enhance performance
+above	The required WebElement is ‘above’ a specified (or particular) element.
+below	The required WebElement is ‘below’ a specified (or particular) element.
+to_left_of	The required WebElement is ‘to the left of’ a specified (or particular) element.
+to_right_of	The required WebElement is ‘to the right of’ a specified (or particular) element.
+near	The required WebElement is ‘at most 50 pixels’ away from the specified (or particular) element.
+Native File Upload Support: reducing the requirement for workarounds or third-party libraries to handle file upload scenarios
+Selenium 4 brings a new feature that lets testers access Chrome DevTools directly from their automated tests
+
+In Selenium 3, you have to create a new Web Driver object and then switch to the new window (or tab) using its unique WindowHandle to perform subsequent actions in that window (or tab).
+
+Selenium 4 provides a new API newWindow that lets you create a new window (or tab) and automatically switches to it. Since the new window or tab is created in the same session, it avoids creating a new WebDriver object.
+
+Open a new Window in Selenium 4
+driver.get("https://www.google.com/");
+// Opens a new window and switches to new window
+driver.switchTo().newWindow(WindowType.WINDOW);
+// Opens LambdaTest homepage in the newly opened window
+driver.navigate().to("https://www.lambdatest.com/");
+
+Open a new Tab in Selenium 4
+driver.get("https://www.google.com/");
+// Opens a new window and switches to new window
+driver.switchTo().newWindow(WindowType.TAB);
+// Opens LambdaTest homepage in the newly opened tab
+driver.navigate().to("https://www.lambdatest.com/");
+
+new methods are added to the Actions class, which replaces the classes under the org.openqa.selenium.interactions package.
+
+1. click(WebElement) is the new method added to the Actions class and it serves as the replacement of moveToElement(onElement).click() method.
+2. moveToElement(element).doubleClick() method used for double clicking on a WebElement is replaced with a doubleClick(WebElement) method in Selenium 4.
+Selenium 4: 
+action.doubleClick(element).build().perform();
+3. moveToElement(onElement).contextClick() used for right clicking on a WebElement is now replaced with the contextClick(WebElement) method in Selenium 4.
+action.contextClick().build().perform();
+
+Selenium 4:
+click(WebElement) is the new method added to the Actions class and it serves as the replacement of moveToElement(onElement).click() method.
+
+Change in fluent wait syntax
+Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
+       .withTimeout(Duration.ofSeconds(120)) // this defines the total amount of time to wait for
+       .pollingEvery(Duration.ofMillis(2000)) // this defines the polling frequency
+       .ignoring(NoSuchElementException.class); // this defines the exception to ignore 
+    
+Element screenshots are now possible
+
+Q what is the difference between comparator and comparable interfaces?
+Comparable and Comparator both are interfaces and can be used to sort collection elements.
+Comparable interface can be used to provide single way of sorting on the basis of a single element such as id, name, and price.
+Comparator interface is used to provide different ways of sorting on the basis of multiple elements such as id, name, and price etc.
+Comparable provides compareTo() method to sort elements.	Comparator provides compare() method to sort elements.
+Comparable is present in java.lang package.	A Comparator is present in the java.util package.
+
+Q Count character in below string?
+public static void main(String[] args) {
+       String str="GeeksforGeeks1234";
+       int count=0;
+       int countnumber=0;
+       for(int i=0;i<str.length();i++)
+       {
+           if(Character.isDigit(str.charAt(i)))
+          countnumber++;
+      else
+          count++;
+       }
+    System.out.println(" count of character"+count);
+
+o/p: count of character13
+
+Q) Example to verify two Arrays Contains same elements.?
+ public static void main(String[] args) {
+      int arr1[]={1,2,3,1};
+      int arr2[]={1,3,4,1};
+      if(arr1.length==arr2.length)
+      {
+          Arrays.sort(arr1);
+          Arrays.sort(arr2);
+         
+          boolean b= Arrays.equals(arr1,arr2);
+          if(b)
+          System.out.println("Array is equal");
+          else
+          System.out.println("Array does not have same element");
+      }
+          else
+          {
+              System.out.println(" not equal");
+          }
+ 
+Q  Eliminate duplicate letters from a sentence
+
+   public static void main(String[] args) {
+     String str="GeeksforGeeks";
+     HashMap<Character,Integer> hmap= new HashMap<>();
+     for(int i=0;i<str.length();i++)
+    {
+             hmap.put(str.charAt(i),1);
+         }
+          
+      for(Map.Entry m : hmap.entrySet()){    
+    System.out.println(m.getKey());  //hashmap elimates duplicate values
+   }  
+
+o/p: 
+r
+s
+e
+f
+G
+k
+o
+
+Q find 2max element in array
+
+int arr[]={7,7,4,5,3,2};
+  Set<Integer> s = new HashSet<>();
+  for(int num:arr)
+  {
+      s.add(num);
+  }
+    int[] a=new int[s.size()];
+    int index=0;
+    for(int newnum:s)
+    {
+        a[index++]=newnum;
+    }
+    int l=a.length;
+    System.out.println(l);
+    int max;
+    max=a[l-2];
+    System.out.println(max);
+
+o/p: 5
+
+Q how to validate response headers in rest assured?
+
+@Test
+public void ValidateBookHeaders() 
+{ 
+RestAssured.baseURI = "https://demoqa.com/BookStore/v1/Books";
+RequestSpecification httpRequest = RestAssured.given();
+Response response = httpRequest.get("");
+// Access header with a given name. Header = Content-Type 
+String contentType = response.header("Content-Type"); 
+Assert.assertEquals(contentType /* actual value */, "application/json; charset=utf-8" /* expected value */); 
+// Access header with a given name. Header = Server 
+String serverType = response.header("Server"); 
+Assert.assertEquals(serverType /* actual value */, "nginx/1.17.10 (Ubuntu)" /* expected value */);
+
+Q Get method in rest assured?
+Response response = httpRequest.request(Method.GET, "");
+// Print the status and message body of the response received from the server 
+System.out.println("Status received => " + response.getStatusLine()); 
+
+ int statusCode = response.getStatusCode();
+// Assert that correct status code is returned.
+Assert.assertEquals(statusCode /*actual value*/, 200 /*expected value*/, 
+"Correct status code returned");
+
+// Retrieve the body of the Response
+	ResponseBody body = response.getBody();
+	// To check for sub string presence get the Response body as a String.
+	// Do a String.contains
+	String bodyAsString = body.asString();
+	Assert.assertEquals(bodyAsString.contains("Hyderabad") /*Expected value*/, true /*Actual Value*/, "Response body contains Hyderabad");
+
+Q Get the nth Salary in the employee table
+
+SELECT MIN(sal) FROM Employee WHERE sal IN (
+  SELECT DISTINCT sal
+  FROM Employee
+  ORDER BY sal DESC
+  LIMIT 4
+);
+
+changes Limit value for any number
+
+Q Final class in java
+Final keyword in front of the class to make it a final class then we will not be able to extend that final class
+prevent inheritance, overriding
+Final keyword - variable it cannot be changed, method it cannot be overloaded.
+Finally block- comes in exception handling
+Finalize - it is used in garbage collection, memory management. objects which are not longer needed we can free.
+final class - it restricts extend, no class extend class
+final methods can be overloaded but they cannot be overridden. It means a class can have more than one final methods of the same name but a child class cannot override the final methods of their base class.
+java interface variable are by default final,static
+
+Q Dataprovider in testng
+
+ @DataProvider (name = "data-provider")
+     public Object[][] dpMethod(){
+	 return new Object[][] {{"First-Value"}, {"Second-Value"}};
+     }
+	
+    @Test (dataProvider = "data-provider")
+    public void myTest (String val) {
+        System.out.println("Passed Parameter Is : " + val);
+
+Q What is wrapper class in java?
+
+A Wrapper class in Java is a class whose object wraps or contains primitive data types
+They convert primitive data types into objects.
+
+primitive char,int wrapper class - Character,Integer   
+
+Q Monkey testing?
+type of software testing in which a software or application is tested using random inputs with the sole purpose of trying and breaking the system.
+
+Q 4 Agile methodology?
+
+Kanban
+Scrum
+Extreme Programming (XP)
+Crystal   
+
+Q ternary operator is a type of Java conditional operator
+ternary is composed of three parts. The ternary operator (? :)
+variable = (condition) ? expression1 : expression2  
+if the condition returns true, expression1 gets executed, else the expression2 gets executed and the final result stored in a variable.
+
+int x, y;  
+x = 20;  
+y = (x == 1) ? 61: 90;  
+System.out.println("Value of y is: " +  y);  
+y = (x == 20) ? 61: 90;  
+System.out.println("Value of y is: " + y);  
+
+o/p: Value of y is: 90
+Value of y is: 61
+
+Q toString(char ch) method : Returns a String type object which represents the specified character
+
+Constructor cannot be static or final, static methods and variables belongs to the classes. But a constructor is called when a new operator is used to create an instance. 
+constructor can not be inherited in subclass, hence there is no use of final keyword with constructor
+
+Q convert int to string
+int number = 42; 
+String strNumber = String.valueOf(number); // "42" 
+
+Q replace specific character at given index
+
+	String str1="geeks";
+        int index=3;
+        StringBuilder sb=new StringBuilder(str1);
+        sb.setCharAt(3,'d');
+        System.out.println(sb);
+
+  or 
+
+        String str = "Geeks Gor Geeks";
+        int index=6;
+        char ch='f';
+        str=str.substring(0,index)+ ch + str.substring(index+1);
+        System.out.println(str);
+
+Q Insert letter at specific position
+
+  //insert word at specific position
+        String str = "Geeks Gor Geeks";
+        StringBuilder sb=new StringBuilder(str);
+        sb.insert(5,"payal");
+        System.out.println(sb);
+
+Q Insert char at specific position
+
+        String str = "Geeks Gor Geeks";
+        StringBuilder sb=new StringBuilder(str);
+        sb.setCharAt(2,'f');
+        System.out.println(sb);
+
+Q Remove duplicate words from given string
+
+ String str = "Geeks Gor Geeks";
+        String words[]=str.split(" ");
+        Set<String> s=new HashSet<>();
+        for(String word:words)
+        {
+            s.add(word);
+            System.out.println(s);
+        }
+
+Q Data-driven testing vs keyword-driven testing:
+Data-driven testing is about iterating over a set of data and using it as user input instead of manually providing the data to test whether the test cases are passing or not. 
+Keyword-driven testing is about using keywords instead of locators to target the element within the software getting tested.
+
+Q WAP to return unique character from given string and eliminate duplicate character 
+
+ 	String str = "Geeks for Geeks";
+       Map<Character,Integer> mp=new HashMap<>();
+         char[] ch=str.toCharArray();
+     
+      for(char c:ch)
+       {
+           mp.put(c,mp.getOrDefault(c,0)+1);  //getOrDefault(ch,0) will return 0 by default if character does not exist and put g,0+1 i.e. g=1
+       }
+       for(Map.Entry<Character,Integer> hmap:mp.entrySet())
+       {
+           if(hmap.getValue()==1)
+           System.out.println(hmap.getKey()+" "+hmap.getValue());
+       }
+
+o/p:
+r 1
+f 1
+o 1
+
+Q WAP to return unique words from given string and eliminate duplicate character
+
+public static void main(String[] args) {
+        String str = "Geeks for Geeks";
+       Map<String,Integer> mp=new HashMap<>();
+      String words[]= str.split(" ");
+      for(String w:words)
+      {
+          mp.put(w,mp.getOrDefault(w,0)+1);
+      }
+      for(Map.Entry<String,Integer> hmap:mp.entrySet())
+      {
+          if(hmap.getValue()==1)
+          System.out.println(hmap.getKey()+" "+hmap.getValue());
+      }
+
+o/p: for
+
+Q count vowel and consonent in below string
+
+   String str = "Geeks for Geeks";
+        str=str.toLowerCase();
+    
+      int vcount=0;
+      int ccount=0;
+      for(int i=0;i<str.length();i++)
+      {
+          if(str.charAt(i)=='a'||str.charAt(i)=='e'||str.charAt(i)=='i'||str.charAt(i)=='o'||str.charAt(i)=='u')
+          vcount++;
+          else if(str.charAt(i)>='a' && str.charAt(i)<='z')
+          ccount++;
+      }
+      System.out.println("vowel count"+vcount);
+      System.out.println("consonent count"+ccount);
+
+or 
+
+   Map<Character,Integer> mp=new HashMap<>();
+        for(char c:str.toCharArray())
+        {
+       mp.put(c,mp.getOrDefault(c,0)+1);
+        }
+      for(Map.Entry<Character,Integer> hmap:mp.entrySet())
+      {
+          if(hmap.getKey()=='a'||hmap.getKey()=='e'||hmap.getKey()=='o'||hmap.getKey()=='i'||hmap.getKey()=='u')
+          System.out.println(hmap.getKey()+" "+hmap.getValue());
+    }
+
+Q WAP in java to swap the variables
+
+  int a=5;
+       int b=6;
+       int temp;
+       temp=a; 
+       a=b;
+       b=temp;
+       System.out.println(+a);
+        System.out.println(+b);
+
+Q  WAP in java to swap the variables without using 3rd variable
+
+int a=5;
+       int b=6;
+       int temp;
+       a=a+b; 
+       b=a-b;
+       a=a-b;
+       System.out.println(+a);
+        System.out.println(+b);
+
+Q Swap 2 strings
+
+  String str1="payal";
+  String str2="kalpesh";
+     
+     str1=str1+str2;
+     str2 = str1.substring(0, str1.length() - str2.length());
+        str1 = str1.substring(str2.length());
+       System.out.println(str1);
+        System.out.println(str2);
+
+Q missing characters 
+
+public class MissingCharacter {
+    public static void main(String[] args) {
+        String input = "a,b,c,d,e,z"; // Given input string
+        for (char ch = 'a'; ch <= 'z'; ch++) {
+             if (input.indexOf(ch) == -1) // Check if character 
+               System.out.println("Missing character: " + ch);
+        }
+    }
+}
+o/p
+Missing character: f
+Missing character: g
+Missing character: h
+Missing character: i
+Missing character: j
+Missing character: k
+Missing character: l
+Missing character: m
+Missing character: n
+Missing character: o
+Missing character: p
+Missing character: q
+Missing character: r
+Missing character: s
+Missing character: t
+Missing character: u
+Missing character: v
+Missing character: w
+Missing character: x
+Missing character: y
+
+Q count number of character in given string
+
+ String str1= "kalpesh3456";
+        int count=0;
+        for(char ch: str1.toCharArray())
+        {
+      if(Character.isLetter(ch))
+          count++;
+        }
+        System.out.println("character count is "+count);
+    }
+
+Q Difference between String s = new String("Hello") and String s="Hello";
+
+String s = new String("Hello") This statement explicitly creates a new String object using the new keyword and the String constructor.
+String s="Hello" This statement implicitly creates a new String object and places it in the string pool (if it does not already exist in the pool)
+
+Q what is string pool and heap memory in java?
+
+The Java string constant pool is an area in heap memory where Java stores literal string values. When you create a string literal (e.g., "Hello"), Java first checks if the string already exists in the string pool
+The heap memory is a large pool of memory allocated to the Java Virtual Machine (JVM) at startup. It is used for dynamically allocated objects, including objects created with the new keyword
+
+Q what will be the output of below code
+public class Main{  
+     public static void main(String []args){  
+        try  
+        {  
+            throw 90;   
+        }  
+        catch(int e){  
+            System.out.println("Caught the exception "+e);  
+        }  
+              
+    }  
+}
+
+O/p: you're attempting to throw an integer value 90, but this isn't allowed in Java. You can only throw instances of subclasses of Throwable, such as Exception or Error. If you want to create a custom exception, you should extend either Exception or RuntimeException
+
+ public static void main(String[] args) {  
+        try {  
+            throw new MyCustomException("Custom exception message");   
+        }  
+        catch (MyCustomException e) {  
+            System.out.println("Caught the exception: " + e.getMessage());  
+        }  
+    }  
+
+Q what is the output of following program?
+class HelloWorld {
+ static
+    {
+        System.out.println("Name");
+    }
+    public static void main(String[] args) {
+        System.out.println(80+80+" Hello"+80+80);
+
+        String h="name";//name
+        String f=new String("name");
+        System.out.println(h==f);
+        System.out.println(h.equals(f));
+
+    }
+}
+
+Name
+160Hello8080
+false
+true
+
+Qdifference between action and actions?
+Action in Selenium is an interface that provides us two methods: perform() and build(). These two methods or commands of action interface are implemented by the actions class. 
+Actions in Selenium is a class that allows us to make a sequence of actions that we would like to perform.
+double-click, right-click, moving a mouse, drag & drop
+
+Q what is Object based languages & object oriented languages?
+
+Object based languages supports the usage of object and encapsulation.
+They does not support inheritance or, polymorphism or, both.
+Object based languages does not supports built-in objects.
+Javascript, VB are the examples of object bases languages.
+
+Object Oriented Languages supports all the features of Oops including inheritance and polymorphism.
+They support built-in objects.
+C#, Java, VB. Net are the examples of object oriented languages.
+
+Q what is typecasting
+conversion of data type
+
+Q hashmap coding mechanism
+
+Q what is Garbage collection
+Garbage collection in Java is the process by which Java programs perform automatic memory management. 
+The main objective of Garbage Collector is to free heap memory by destroying unreachable objects.
+
+finalize() method
+The finalize() method is invoked each time before the object is garbage collected. This method can be used to perform cleanup processing. This method is defined in Object class as:
+protected void finalize(){}  
+
+The gc() method is used to invoke the garbage collector to perform cleanup processing. The gc() is found in System and Runtime classes.
+public static void gc(){}  
+System.gc();  
+
+Q what is static block
+static block is a set of instructions that is run only once when a class is loaded into memory
+The static block executes at class loading time because it can contain only static data that binds with the class. So, there is no dependency on object creation
+
+Q can we use 2 main methods?what happens if we do so
+yes we can have 2 main methods and parameter should be different, main method is overloaded
+
+technically declare multiple main methods in the same class, but only one main method can serve as the entry point for your program
+When you run a Java program, the Java Virtual Machine (JVM) looks for the main method with the following signature to start the execution
+only the first main method will be executed, and it will serve as the entry point. The second main method will not be invoked.
+
+Q what is public static void main(String [] args)
+public is an access specifier, static is a Keyword, the void is the Return Type, main is the default method name and String args [] is the array of type string
+
+Public 
+It is an Access modifier, which specifies from where and who can access the method. Making the main() method public makes it globally available.
+
+Static
+It is a keyword that is when associated with a method, making it a class-related method. The main() method is static so that JVM can invoke it without instantiating the class. 
+
+Void 
+It is a keyword and is used to specify that a method doesn’t return anything. As the main() method doesn’t return anything, its return type is void. 
+
+main 
+It is the name of the Java main method.
+
+String[] args 
+It stores Java command-line arguments and is an array of type java.lang.String class. 
+
+Overloading main() Method in Java
+Overloading the main() method is possible in Java, meaning we can create any number of main() methods in a program.
+
+Q Write program to print missing numbers form array? int [] a = {1,3,6,7,10} O/p:- 2,4,5,8,9
+  public static void main(String[] args) {
+        int[] arr = {1, 3, 5, 7, 10};
+        int n = arr.length;
+        int lastNum = arr[n - 1];
+        int index = 0;
+for(int i=1;i<lastNum;i++)
+{
+    if(arr[index]==i)
+    index++;
+    else
+    System.out.println(i+" ");
+}
+
+Q TakesScreenshot scrShot =((TakesScreenshot)webdriver);
+File SrcFile=scrShot.getScreenshotAs(OutputType.FILE); explain sentence?
+TakeScreenshot is the interface
+webdriver is reference variable
+scrShot.getScreenshotAs is methodname
+
+Q wap to print current date time?
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class CurrentDateTime {
+    public static void main(String[] args) {
+        // Get the current date and time
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        
+        // Define a format for date and time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        
+        // Format the current date and time using the defined format
+        String formattedDateTime = currentDateTime.format(formatter);
+        
+        // Print the formatted current date and time
+        System.out.println("Current Date and Time: " + formattedDateTime);
+    }
+}
+
+Q wap to print amstrong number upto 500?
+
+public class ArmstrongNumbers {
+    public static void main(String[] args) {
+        for (int number = 1; number <= 500; number++) {
+            int originalNumber, remainder, result = 0;
+
+            originalNumber = number;
+            while (originalNumber != 0) {
+                remainder = originalNumber % 10;
+               result =result+remainder*remainder*remainder; 
+	       originalNumber = originalNumber/10;
+            }
+
+            if (result == number)
+                System.out.println(number + " is an Armstrong number.");
+        }
+    }
+}
+
+
+Q wap to print pair whose sum=7 in given array={1,2,3,4,5} 5+2=7,4+3=7
+
+ public static void main(String[] args) {
+       int ar[]={1,2,3,4,5};
+       int countpair=0;
+       int sum=7;
+       int result=0;
+       for(int i=0;i<ar.length;i++)
+       { 
+           for(int j=i+1;j<ar.length;j++)
+           {
+               result=ar[i]+ar[j];
+               if(sum==result)
+               countpair++;
+           }
+       }
+      if(countpair>0)
+       System.out.println(countpair);
+    }
+
+o/p: 2
+
+
+
+TDD vs BDD
+Test-Driven Development is a testing methodology or a programming practice implemented from a developer’s perspective.
+TDD focuses primarily on testing the functionality of individual units (classes, methods, functions) of code. 
+TDD tests are typically written using programming language-specific testing frameworks (e.g., JUnit for Java, XCTest for Swift). 
+TDD tests are primarily written by developers 
+
+BDD, on the other hand, focuses on testing the behavior of the system from an end-user or business perspective
+BDD tests are often written in a more human-readable format using natural language specifications (e.g., Gherkin syntax). 
+In BDD, teams often start by defining the behavior of the system using scenarios or user stories written in a structured format (such as Given-When-Then).
+BDD tests are often written collaboratively by developers, testers, and business stakeholders. 
+
+What are the pillars of java explain with real time examples?
+Encapsulation, securing data within classes;
+Inheritance, for creating new classes from existing ones; 
+Polymorphism, allowing methods to perform differently based on input; 
+Abstraction, hiding complex implementation details from the user.
+
+Q Reverse alternate of string str="my name is payal"
+o/p: ym name si payal
+public static void main(String args[])
+{  
+   String str="my name is payal";
+   String words[]=str.split(" ");
+   StringBuilder sb=new StringBuilder();
+   for(int i=0;i<words.length;i++)
+   {
+       if(i%2==0)
+       {
+          String w=words[i];
+          StringBuilder sb1=new StringBuilder(w);
+          sb.append(sb1.reverse());
+       }
+       else
+       {
+           sb.append(words[i]);
+       }
+       sb.append(" ");
+   }
+   System.out.println(" "+sb.toString()+" ");
+}}
+
+Q reverse each word of string str="my name is payal";
+public static void main(String args[])
+{  
+   String str="my name is payal";
+   String words[]=str.split(" ");
+   StringBuilder sb=new StringBuilder();
+   for(int i=0;i<words.length;i++)
+   {
+          String w=words[i];
+          StringBuilder sb1=new StringBuilder(w);
+          sb.append(sb1.reverse());
+          sb.append(" ");
+   }
+   System.out.println(sb.toString());
+
+or 
+
+public static void main(String args[])
+{  
+   String str="my name is payal";
+   String words[]=str.split(" ");
+   String reverseword="";
+   for(int i=0;i<words.length;i++)
+   {
+          String w=words[i];
+          StringBuilder sb1=new StringBuilder(w);
+          reverseword=reverseword+sb1.reverse()+" ";
+   }
+   System.out.println(reverseword);
+}}
+
+o/P: ym eman si layap
+
+Q Reverse whole string in java String str="my name is payal"
+public static void main(String args[])
+{  
+    String str="my name is payal";
+   String words[]=str.split(" ");
+   String reverseword="";
+   for(int i=0;i<words.length;i++)
+   {
+          String w=words[i];
+          StringBuilder sb1=new StringBuilder(w);
+          reverseword=sb1.reverse()+" "+reverseword;
+   }
+   System.out.println(reverseword);
+
+o/p: layap si eman ym 
+
+Q Is there a difference between ++x and x++ in java?
+
+++x is called preincrement while x++ is called postincrement.
+
+int x = 5, y = 5;
+System.out.println(++x); // outputs 6
+System.out.println(x); // outputs 6
+
+System.out.println(y++); // outputs 5
+System.out.println(y); // outputs 6
+
+Q What is the difference between += and =+? 
+i += 4; means i = i + 4;  // increase i by 4.
+i =+ 4; means i = 4;   // assign 4 to i.
+
+public class A { 
+    public static void main(String[] args) 
+    { 
+        if (true) 
+            break; 
+    } 
+} 
+Choices:
+a) Nothing
+b) Error
+Answer: b) Error
+Reason: Break statement can only be used with loop or switch. So, using break with if statement causes “break outside switch or loop” error.
+
+Question 2: What will be the Output of the below code
+public class A { 
+    public static void main(String[] args) 
+    { 
+        System.out.println('j' + 'a' + 'v' + 'a'); 
+    } 
+} 
+
+a) java
+b) Something else (Other than simple concatenation)
+Answer: b) Something else (Other than simple concatenation)
+Reason: “java” would be printed if String literals (in double quotes) are used, but in the question since character literals has been used, these won’t be concatenated. Therefore After execution of the program, an addition of each equivalent ASCII(Unicode) value of the character will be obtained.
+Hence the output is 106 + 97 + 118 + 97 = 418
+
+Q  public static void main(String[] arr){ 
+        Integer num1 = 100; 
+        Integer num2 = 100; 
+        Integer num3 = 500; 
+        Integer num4 = 500; 
+          
+        if(num1==num2){ 
+            System.out.println("num1 == num2"); 
+        } 
+        else{ 
+            System.out.println("num1 != num2"); 
+        } 
+        if(num3 == num4){ 
+            System.out.println("num3 == num4"); 
+        } 
+        else{ 
+            System.out.println("num3 != num4"); 
+        } 
+    } 
+
+num1 == num2
+                  num3 != num4
+Reason: We always thought that whenever two object references are compared using “==”, it always evaluates to “false”. But here Integer caching changes the results.Integer class has a caching range of -128 to 127. Whenever a number is between this range and autoboxing is used, it assigns the same reference. That’s why for value 100, both num1 and num2 will have the same reference, but for the value 500 (not in the range of -128 to 127), num3 and num4 will have different reference.
+
+IllegalArgumentException is a subclass of RuntimeException
+
+public static void main(String args[])  
+{  
+String str="ONE"+1+2+"TWO"+"THREE"+3+4+"FOUR"+"FIVE"+5;  
+System.out.println(str);  
+}  
+
+o/p: ONE12TWOTHREE34FOURFIVE5
+
+Q Difference between length & length()
+The length variable is applicable to determine size of an array but not for string objects whereas the length() method is applicable for string objects but not for arrays.
+
+Q what are the new features added in java 21
+1. Structured concurrency, treating groups of related tasks running in different threads as a single unit of work
+2. Scoped values,will enable the sharing of immutable data within and across threads.They are preferred to thread-local variables, particularly when using large numbers of virtual threads.
+3. Generational ZGC is intended to improve application performance by extending ZGC to maintain separate generations for young and old objects. 
+4. Pattern matching for switch enables a switch expression or statement to be tested against a number of patterns, each with a specific action, so that complex data-oriented queries can be expressed safely and concisely. 
+5. Virtual threads are lightweight threads that promise to dramatically reduce the effort of writing, maintaining, and observing high-throughput concurrent applications.
+6. Java Emoji Support Tools- Java has introduced the method in the ‘java.lang.Character’ class to work with different types of emoji’s properties, it’s defined by the Unicode Standard (unicode emoji technical standard) UTS#51.
+7. Advancing Java collections - brings new interfaces to the Java collections framework which is enhancing the collection framework, It allows a collection where you can easily add or remove items from both the beginning and the end.
+8. Performance Improvements- Java has the feature of Z Garbage Collection (ZBC) which performs all the expensive works concurrently, without stopping the execution of application threads.
+
+First round :
+
+1. Tell about your daily activities with respect to automation
+2. Api testing and automation related test case scenarios
+3. Oops in framework
+4. How do you initialize driver in base class and link it with test class
+5. Pallindrome program with separate method 
+6. character occurence and print ocurence in the same order of give string 
+7.overloading and over riding 
+8.git operations
+9 git fetch a
+and git pull
+
+Manager round :
+
+Explain about framework
+Challenge in automation
+How do you pick test cases for automation
+
+Q How do you handle flaky test cases 
+waits , environment should be stable , dependency should be addressed well
+Junit and testNg assertions
+How do you achieve reusability in framework
+
+Q What is singleton class in java?
+The primary purpose of a java Singleton class is to restrict the limit of the number of object creations to only one. 
+
+Q Maven is a powerful build automation tool primarily used for Java projects. It provides a way to manage project dependencies, build configurations, and project lifecycle in a standardized and efficient manner. Maven simplifies the process of building and managing Java projects by automating repetitive tasks and providing a standardized project structure.
+
+Key features of Maven include:
+
+Dependency Management: Maven manages project dependencies by downloading necessary libraries from repositories such as Maven Central Repository. It resolves dependencies transitively, meaning if a project depends on another project, Maven will automatically download the required dependencies for both projects.
+
+Build Lifecycle: Maven defines a set of standard phases for building and deploying projects, such as compile, test, package, install, and deploy. These phases are organized into build lifecycles, which define the order in which Maven executes the build process.
+
+Convention over Configuration: Maven follows the principle of convention over configuration, meaning it provides sensible defaults and project structures, reducing the need for manual configuration. However, Maven also allows customization through configuration files (e.g., pom.xml).
+
+Project Object Model (POM): Maven projects are defined by an XML file called pom.xml (Project Object Model). The pom.xml file specifies project metadata, dependencies, plugins, and build configurations.
+
+Plugin Architecture: Maven is extensible through plugins, which provide additional functionality for various tasks such as compiling code, running tests, generating documentation, and deploying artifacts. Maven plugins are managed centrally and can be easily added to projects.
+
+Central Repository: Maven Central Repository is a repository of open-source Java libraries and artifacts. Maven automatically downloads dependencies from this repository, making it easy to manage project dependencies without manual downloading and configuration.
+
+Q perform() vs build().perform() - 
+perform() is used to execute a sequence of actions directly
+build().perform() is used to first compile a series of actions into a composite action, and then execute them together. 
+The choice between them depends on the complexity of the actions you want to perform and whether you want to execute them immediately or as a single composite action.
+
+Q Wrapper classes in Java are classes that allow primitive data types to be accessed as objects. In Java, primitive data types (such as int, double, char, boolean, etc.) are not objects, but sometimes we need to treat them as objects. Wrapper classes provide a way to do this by encapsulating primitive values within objects. The Java platform provides a set of predefined wrapper classes for each primitive data type.
+
+Here are the wrapper classes for primitive data types:
+
+Byte - for byte
+Short - for short
+Integer - for int
+Long - for long
+Float - for float
+Double - for double
+Character - for char
+Boolean - for boolean
+
+Q Static variable - is used by all the objects, and it is called as class variables.
+Static block - is used to initialize static variable, and it gets execute before main method. 
+Static method:refers to the class method and can access only static variable
+Static class- to make it global, all the objects share same variables
+Q JavaScriptExecutor is an interface that is used to execute JavaScript through selenium webdriver. JavaScript is a programming language that interacts with HTML in a browser, and to use this function in Selenium, JavascriptExecutor is required.It works with html code. if we want to click element which is on popup but javascript executor will check button
+
+ Difference between char and Character.
+char is a primitive data type in Java, representing a single 16-bit Unicode character. 
+Character is a wrapper class in Java, which encapsulates a value of the primitive type char. It allows you to perform operations on characters as objects and provides utility methods for working with characters.
+
+Q Wrapper classes in Java:
+ are a set of classes provided by the Java API that encapsulate primitive data types. They allow primitive data types to be used as objects in Java programs.
+Wrapper classes are often used in scenarios where primitive data types cannot be used directly, such as in collections like ArrayList or HashMap, which require objects. 
+
+Q How to skip the remaining test cases if one functionality fails in TestNg
+In TestNG, you can skip the remaining test cases in a test suite if one functionality fails by using the ITestResult interface and the throw keyword. 
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+
+public class YourTestClass {
+
+    @Test
+    public void testFunctionality1() {
+        // Test functionality 1
+        if (/* Check for failure condition */) {
+            throw new RuntimeException("Functionality 1 failed. Skipping remaining test cases.");
+        }
+    }
+
+    @Test
+    public void testFunctionality2() {
+        // Test functionality 2
+        // This test will be skipped if functionality 1 fails
+    }
+
+    @AfterMethod
+    public void afterMethod(ITestResult result) {
+        if (result.getStatus() == ITestResult.FAILURE) {
+            // If any test case fails, print the failure message
+            System.out.println("Test case failed: " + result.getName());
+            // Skip the remaining test cases
+            throw new RuntimeException("Skipping remaining test cases due to failure in previous test.");
+        }
+    }
+}
+In each test method, you can include conditions to check whether the functionality being tested has failed. If it fails, throw an exception (RuntimeException in this example).
+Use the @AfterMethod annotation on a method that will be executed after each test method. Inside this method, check the status of the test result. If any test fails (result.getStatus() == ITestResult.FAILURE), throw an exception to skip the remaining test cases.
+When an exception is thrown in the @AfterMethod annotated method, it will cause TestNG to stop executing further test methods and mark the test suite as failed.
+
+how to drag and drop mouse hover actions:
+ actions.dragAndDrop(sourceElement, targetElement).build().perform();
+
+or 
+actions.clickandHold(driver.findElement(By.xpath("xpath").moveToElement(driver.findElement(By.xpath("xpath").release().build().perform();
+
+Q what is timecomplexity in program?
+Time complexity in Java (or any programming language) refers to the measure of how the execution time of an algorithm or a piece of code grows with the size of its input.
+
+Q what are hooks in cucumber?
+In Cucumber, hooks are blocks of code that allow you to run pre- and post-scenario actions during the execution of your feature files. 
+Before Hooks: These hooks run before each scenario. 
+After Hooks: These hooks run after each scenario. 
+BeforeStep and AfterStep Hooks: These hooks run before and after each step within a scenario. 
+Q what is Test listener?
+
+Q difference between dependency and plugins?
+
+Dependencies are specified in the project's pom.xml file within the <dependencies> section.
+Maven resolves dependencies from repositories such as Maven Central or local repositories and automatically downloads them to your project's build path.
+
+A plugin in Maven is a set of goals (or tasks) that can be executed to perform specific build-related tasks.
+Plugins are configured in the pom.xml file within the <build><plugins> section.
+Maven plugins can perform various tasks such as compiling source code, running tests, packaging artifacts, generating documentation, deploying applications, and more.
+
+Q What is Oracle NetSuite?
+It is Cloud-based ERP(Enterprise resource planing) software that helps enterprise to achieve growth and progress by effectively optimizing business process.
+This platform consist of a suite of application that helps companies to run their business more effeciently
+
+Q Components of erp?
+Transaction database
+Management portal
+Human resoource
+Supply chain management
+workflow management 
+
+Q Tosca VS Selenium
+
+Tosca supports almost all
+Selenium supports web application only
+Vendor tool is Tricentis
+Selenium is open source
+Scripting is not required for Tosca
+Scripting is required Java, Python, C#
+Tosca is modal based automation tool
+Selenium is code based automation tool
+Tosca support test data management
+Selenium does not support 
+Tosca supports Jenkins, Git 
+Selenium supports jenkins & git 
+
+Q What to do if you find a production bug?
+Start with analysis- QA is responsible
+add in bug tracking tool - Jira
+QA & Dev will work on RCA
+Fill RCA and share with stalkholders
+Add missing tc to test management tool & automate flow
+
+Q What to do if stakeholders say take X days and release project?
+1. Prepare test estimation sheet
+2. show them with data how much you cn execute
+3. tell them about the tsk of hurry and missing testing area
+4. test with priority.
+
+Q what to do when developer say this is not a bug?
+1. analyze requirement 
+2. pin point correctly w.r.t req
+3. let them aware of missing area & impact of bug
+4. add proof
+
+Q Discuss most imp bug you have found?
+
+Q Test plan, test case, RTM, Test Estimation
+
+Q What are hooks in Cuccumber?
+hooks are special blocks of code that allow you to perform actions at various points during the execution of your test scenarios. 
+
+Before Hooks: These hooks are executed before each scenario. 
+After Hooks: These hooks are executed after each scenario. 
+BeforeStep and AfterStep Hooks: These hooks are executed before and after each step within a scenario.
+Before and After Suite Hooks: These hooks are executed before and after the entire test suite. 
+
+Q What is Test Listener in TestNG?
+test listener is a component in testing frameworks, such as TestNG or JUnit, that allows you to monitor and respond to events occurring during the test execution lifecycle. 
+
+Test listeners are useful for various purposes, including:
+Logging: You can use test listeners to log information about test execution, such as test start times, test end times, and results.
+Reporting: Test listeners enable you to generate customized reports based on test execution events, providing insights into test progress and outcomes.
+Test Environment Setup and Teardown: You can use test listeners to perform setup and teardown actions before and after test execution, such as initializing resources or cleaning up test data.
+Error Handling: Test listeners allow you to handle errors and exceptions that occur during test execution, providing opportunities for graceful error recovery or reporting.
+Customization and Extension: Test listeners provide a way to extend the functionality of testing frameworks by adding custom behavior or integrating with external systems.
+
+SaaS - Software as a service 
+means piece of software which is used by end client - google appa - gmail, salesforce, dropbox
+
+PaaS - Platform as a service 
+capabaility of building service on top of existing service 
+means gives super user or adminsitrators makes their own changes and customize it as there own needs
+
+ServiceNow : Cloud based platform , ServiceNow as a software platform provides IT service management and automates organizational workflow as per business process
+It provides integrated suit of applications to model and automate various flow of activities across enterprise.
+it provides user interface to use complex organization needs
+
+Architecture: Java based platform using Tomcat web server ad running on linux 
+Mysql database
+Mozilla rhino javascript engine
+
+Q What is String in java?
+String is class in java
+String is immutable and final in java
+its not primitive data type like int, long
+String str=new String("abc"); // creating string object
+
+Q Trace the output?
+String str=new String("abc");
+String str=new String("abc");
+Sop(s1==s2);
+
+o/p : false because diff memory location
+
+Q which class is superclass in java?
+java.lang.Object is the root class and we dont need to extend it
+
+Q what is importance of main method?
+main is entry point of program, public and static so that java runtime can access it without initializing
+
+Q Can we overload main method?
+Wes , we can have multiple main method in single class
+
+Q how you will login page when authentication popup for username and password?
+WebDriverWait wait=new WebDriverWait(driver,10);
+Alert alert=wait.until(ExectedConditions.alertisPresent());
+alert.authenticateUsing(new UserandPassword(username,password));
+
+Appium:
+is open source mobile automation tool
+cross platform testing tool:ios ,android
+works on native,hybrid & mobile web apps
+support selenium webdriver api library
+language flexibility gives an option to use java,python,ruby,c#.
+
+architecture:
+
+appium client code >json wire protocal > appium server > android using google UIautomation, XCuitest for ios
+Appium runs on 2tier architecture where test machine connects to test server running appium and automating whole thing
+we can have appium running on same where test runs
+
+Challenges of mobile application:
+1. usability
+2. user experience 
+3. device connectivity
+4. complex setup
+5. support of older movile devices
+6. network support to 3g,4g
+7. support any version of os
+
+Q difference between simulator vs emulator
+emulator - mimickly mobile , software and hardware 
+simulator- mimicking software
+
+Q types of mobile app testing?
+usability 
+performance
+compability 
+integration
+operation 
+installation
+
+apk- android app package file 
+ipa- ios app store package
+exe- executable file
+
+Q types of mobile applications:
+native: app installed in mobile , calculator, camera etc 
+web:runs on browser using url , google.com
+hybrid: has web and native app, can be install from playstore
+
+Q explain design?
+appium is http server, written using node js platform works on json wire protocoal, when appium is download server is setup and exposes rest api it recieves request and responses 
+
+Q how to scroll in  mobile application?
+driver.findElementByAndroidUIAutomator("new UiScrollable(new    UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\"WebView\").instance(0))").click(); //scroll down to the element and click
+
+Q Jenkins- it is a CI/CD open source tool written in java
+
+Jenkins VS Bamboo
+Jenkins is open sourse and free, Bamboo is paid
+It is supported for windows, linux, red hat, mac os. Bamboo supported for windows , linux, solaris
+
+Q Explain jenkins process?
+Developer, tester commits changes in source code repository > Jenkins will check repository in regular interval > if chnages occurs it will create build > it will provide feedback whether build is pass or fail
+
+Q benefits?
+1. automatic build reports 
+2. achieve continous integration
+3. easy tracking bugs
+
+Q what is maven?
+it is buildmanagement tool, it uses pom.xml to configure and install dependencies
+
+Q what is the use of jenkins pipeline?
+It is use to run tasks one after another in serial manner , it helps to view stages or tasks in pipeline form.
+
+Q What is agent, post-action, jenkins file?
+Agent:direct to tell jenkins to execute the pipeline in a particular manner and order
+Post-action: needed to add some notification/emals and perform task at the end os pipeline
+jenkinsfile: textfile where all the definitions of pipelines are defined
+stages: series of tasks in jenkins file / pipeline script
+
+Q what is the use of jenkin_home directory?
+all the configuration and logs are store in directory
+
+Q what syntax does jenkins use to schedule svn polling and build jobs?
+cron syntax:
+H * * * * - every hour
+H/15 * * * * - every 15mins
+0 8 * * * - 8am everyday
+
+Q what is devops?
+devops is the software development practise that blends software developement life(dev) with the IT operations
+
+Q  other CI/CD tools?
+Bamboo, Teamcity, circleCI
+
+Qwhat is github?
+provide web space for hosting git repo
+
+Q what is git stash?
+stashing takes your working directory that is your modified tracked files unfinished changes and saved that you can reapply anytime
+git stash apply command is used to bring back saved changes onto your current working directory
+
+Q how to find a list of files that chnaged during commit?
+git fiff -tree -r
+
+Q difference between git rebase and git merge
+git rebase:to integrate changes into other branch , it rewrites commits history
+git merge: merge independent branch in main branch
+
+Q git revert vs reset:
+reset is to return to last state, reset alters commit history
+revert creates new commit, it does not modify history
+
+Q git cherry pick?
+used to pick particular commit from one branch to another branch
+git cherry commit hash
+
+Q Git fetch vs git pull?
+Git fetch will fetch code from Remote repo(github) to local repo but not to working directory , to see code will need to merge the code in working directory
+Git pull will take code from Remote repo to working directory(ecl)
+
+Q How to pass value in jenkins
+create pipelin > go to pipeline script > click pipeline syntax >declarative directive generator> sample directive > parameters and add name and value > generate directive > copy code and go back to pipeline script 
+
+add below code:
+
+pipeline {
+    agent any
+parameters {
+  string defaultValue: 'payal', description: 'test pipeline', name: 'name'
+   string defaultValue: 'banglore', description: 'welcome', name: 'location'
+}
+    stages {
+        stage('Param demo') {
+            steps {
+                echo "Hi ${params.name},welcome to ${params.location}"
+            }
+        }
+    }
+}
+
+Q What is Karate?
+Open source tool used for Api testing(soap & rest)
+written in java
+can also do UI testing, performance testing(using gatling)
+uses bdd syntax
+Requires no technical background 
+can run in parallel testing, distributed testing
+data driven testing - csv, json, xml
+cross browser web ui testing
+cross platform desktop testing
+
+Q Find pairs whose sum is 20 and find out unique characters
+int arr[] = {11,5,3,7,9,15,4,17,11,29,9,11,11,9};
+int sum = 20;
+
+Q String str = "Pune";
+
+O/P
+   P
+  Pu
+ Pun
+Pune
+
+Q what will be printed?
+
+try{
+//File operation
+}
+
+finally{
+ syso("Finally");
+}
+syso("Code1");
+syso("Code2");
+syso("Code3"); 
+
+The interface in Java is a mechanism to achieve abstraction. There can be only abstract methods in the Java interface, not method body. It is used to achieve abstraction and multiple inheritance in Java.
+
+Since Java 8, interface can have default and static methods 
+
+Java 8 interface changes include static methods and default methods in interfaces. Prior to Java 8, we could have only method declarations in the interfaces. 
+But from Java 8, we can have default methods and static methods in the interfaces.
+ava 8 interface default methods will help us in avoiding utility classes, such as all the Collections class method can be provided in the interfaces itself.
+Java interface default methods will help us in removing base implementation classes, we can provide default implementation and the implementation classes can chose which one to override.
+One of the major reason for introducing default methods in interfaces is to enhance the Collections API in Java 8 to support lambda expressions.
+
+Java interface static method is similar to default method except that we can’t override them in the implementation classes. This feature helps us in avoiding undesired results incase of poor implementation in implementation classes.
+
+Q Creation of interface, how do we call interface , and methods 
+Can we create object of interface - yes
+can we declare variables in interface - constant 
+// A simple interface
+interface Player
+{
+    final int id = 10;
+    int move();
+}
+
+Interface Drawable{  
+void draw();  
+}  
+//Implementation: by second user  
+class Rectangle implements Drawable{  
+public void draw(){System.out.println("drawing rectangle");}  
+}  
+class Circle implements Drawable{  
+public void draw(){System.out.println("drawing circle");}  
+}  
+//Using interface: by third user  
+class TestInterface1{  
+public static void main(String args[]){  
+Drawable d=new Circle();//In real scenario, object is provided by method e.g. getDrawable()  
+d.draw();  
+}}  
+
+Q List , Set is interface,class,object
+List and Set interfaces are one of them that are used to group the object
+
+Q List syntax and retrieve elements 
+
+Q Compare 2 lists 
+// create two Array List
+        ArrayList<String> ArrayList1
+            = new ArrayList<String>();
+        ArrayList<String> ArrayList2
+            = new ArrayList<String>();
+  // insert items in ArrayList 1
+        ArrayList1.add("item 1");
+        ArrayList1.add("item 2");
+        
+        // insert items in ArrayList 2
+        ArrayList2.add("item 1");
+        ArrayList2.add("item 2");
+       
+        // Display both ArrayList
+        System.out.println(" ArrayList1 = " + ArrayList2);
+        System.out.println(" ArrayList1 = " + ArrayList1);
+ 
+        // compare ArrayList1 with ArrayList2
+        if (ArrayList1.equals(ArrayList2) == true) {
+            System.out.println(" Array List are equal");
+        }
+
+Q how you will find out xpath of 5th element, last element 
+findElement(By.xpath("(//input[@type='text'])[position()=5]"))
+findElement(By.xpath("(//input[@type='text'])[last()]"))  
+
+Q how you will switch to frame
+driver.switchTo.frame(1);
+
+Q Hashmap , show hashmap in sorted order
+// Java Code to sort Map by key value
+import java.util.*;
+class sortmapKey {
+
+	// This map stores unsorted values
+	static Map<String, Integer> map = new HashMap<>();
+
+	// Function to sort map by Key
+	public static void sortbykey()
+	{
+		ArrayList<String> sortedKeys
+			= new ArrayList<String>(map.keySet());
+
+		Collections.sort(sortedKeys);
+
+		// Display the TreeMap which is naturally sorted
+		for (String x : sortedKeys)
+			System.out.println("Key = " + x
+							+ ", Value = " + map.get(x));
+	}
+
+	// Driver Code
+	public static void main(String args[])
+	{
+		// putting values in the Map
+		map.put("Jayant", 80);
+		map.put("Abhishek", 90);
+		map.put("Anushka", 80);
+		map.put("Amit", 75);
+		map.put("Danish", 40);
+
+		// Calling the function to sortbyKey
+		sortbykey();
+	}
+}
+
+Q Restassured syntax and check if given word is present in response
+
+Q what is scenario line in cucumber?
+Scenario outlines are used when the same test is performed multiple times with a different combination of values
+
+Q what is use of thread count in testng?
+Thread count is basically a number of instances running to execute multiple tests simultaneously or in parallel.
+
+Q can method method be overloaded if yes what will be sequence?
+it can be overloaded and sequence will be which have default args(String args[])
+
+Jmeter:
+Connection time: time to connect to server from client
+Response time: is the measure of how responsive an application or subsystem is to the client request, client send request and server sends response flow
+Throughput: indicates number of transactions per second
+Load testing: used to evavulte the behaviour of system when the load on the system increases up to peak level
+Scalability: 
+
+
+youtube video play scenario
+application not working high scenario 
+git process 
+git clone vs git copy
+hashmap type vs hashset 
+limitations page object modal
+star pyramid - wihout 3 loop
+prime number 
+
+Q The reports generated by any Scrum project in JIRA are:
+
+Sprint Report
+Control chart
+Burn down chart
+Cumulative Flow diagram
+Epic Report
+Release Burndown
+Velocity chart
+Version Report
+
+Q Name some reports generated in JIRA for the issues tracking and analysis.
+Following are the general reports generated as and when required for analyzing issues:
+
+Average Age Report
+Created vs Resolved issue Report
+Pie Chart Report
+Recently created Issue Report
+Resolution Time Report
+Time Tracking Report
+User Workload Report
+Version Workload Report
+
+Q Boundary value analysis:
+is a software testing technique used to identify errors at the boundaries of input values rather than within the range of input values. This method focuses on the edges of input ranges, where errors are more likely to occur. 
+
+Q What are some important parts of the Agile process
+1. Customer Satisfaction
+2. Welcome Changes
+3.Deliver Frequently
+4.Work Together
+
+Agile is a popular set of methods and practices that majorly focuses on interactive development. Thanks to self-organizing collaborations between cross-functional teams,
+
+Q What are the different types of Agile methodologies?
+Kanban
+Scrum
+Lean
+Crystal
+
+Q What Are the Principles of Agile Testing?
+Testing continuously to ensure continuous improvement of the product
+Continuous feedback to ensure the product satisfies the business requirements
+Team roles like testing and development need to be actively involved in the testing process
+Actively involving the business team and user representatives can help obtain quick feedback for each iteration
+Clean and simplified code ensures it is defect-free during the iteration
+
+Agile
+It is a set of principles that’s iterative and incremental in nature
+Suited for projects involving a small team of experts
+The project head takes care of all tasks and is vital to the project
+
+Scrum
+It is an implementation of the Agile methodology
+Used in teams that need to handle constant changing requirements
+No leader. Issues are handled by the scrum master and the team
+
+Scenario: You are working on a tight deadline for a software release, and you have a large number of test cases to execute. What strategies would you employ to meet the deadline without compromising quality?
+- Answer: To meet the deadline, I would prioritize test cases based on their criticality, focus on high-impact areas, and automate repetitive tests. I'd also collaborate closely with the development team to ensure quick defect resolution. Continuous communication and risk-based testing would be key to balancing speed and quality.
+
+Scenario: You are testing a mobile banking app, and you receive a complaint that the app crashes when users attempt to transfer money. How would you troubleshoot and document this issue?
+- Answer: First, I would attempt to reproduce the issue on multiple devices. If successful, I'd document the crash with detailed steps, device information, and screenshots. I'd also check the error logs to identify any exceptions or crashes. Communication with the development team is key to resolving this critical issue.
+
+Scenario: You are testing a new feature in a web application that involves user authentication and authorization. How would you ensure the security and reliability of this feature?
+
+- Answer: I'd create test cases to cover various scenarios, including valid and invalid login attempts, role-based access, and data security. I'd also conduct penetration testing to identify vulnerabilities. Collaboration with the security team and compliance with best practices are crucial.
+
+
+Scenario: You are testing a file-sharing application, and users report that uploaded files are occasionally corrupted. How would you investigate and address this data integrity issue?
+
+- Answer: I would start by examining the upload process and the handling of different file types. Testing various file formats, sizes, and network conditions is essential. I'd also check for error handling during the upload process and implement checksum or hash verification to ensure data integrity.
+
+STLC :
+Requirement analysis > Test Planning > Test case creation > Test Enviroment setup > test case execution > test closure 
+
+SDLC : 
+Requirement analysis > UI/UX design(System) > Implementation(developement) > Testing > Deployment > Maintainence
+
+Oracle NetSuite is a cloud-based enterprise resource planning (ERP) platform that provides a suite of applications to manage a variety of business processes.
+
+Key Features of Oracle NetSuite
+
+Enterprise Resource Planning (ERP):
+Core financials and accounting
+Order management
+Inventory management
+Procurement
+Supply chain management
+
+Customer Relationship Management (CRM):
+Sales force automation
+Marketing automation
+Customer support and service
+Partner relationship management
+
+eCommerce:
+Integrated eCommerce platform for creating and managing online stores
+Seamless connection between front-end and back-end systems
+Professional Services Automation (PSA):
+
+Project management
+Resource management
+Time and expense tracking
+Project accounting
+Human Capital Management (HCM):
+
+Human resources management
+Payroll
+Employee self-service
+Business Intelligence:
+
+Real-time dashboards
+Customizable reporting
+Advanced analytics
+
+Global Business Management:
+Multi-currency
+Multi-language
+
+DocuSign is a digital transaction management service that facilitates electronic signature processes. It allows individuals and businesses to manage and automate the process of signing, sending, and receiving documents online securely and efficiently. Here’s a detailed overview of what DocuSign offers and how it works:
+
+
+
+
+
+
